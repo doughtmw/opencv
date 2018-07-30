@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{81ACB54D-CC01-39C7-8A8E-4FE7545E958A}</ProjectGUID>
+    <ApplicationType>Windows Store</ApplicationType>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.17134.0</WindowsTargetPlatformMinVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>zlib</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\lib\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">zlib.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">zlibd</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\lib\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">zlib.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">zlib</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\zlib;C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <CompileAs>CompileAsC</CompileAs>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ProcessorNumber>8</ProcessorNumber>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;UNICODE;_UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_DEBUG;WINRT;NO_GETENV;WINRT_STORE;WINVER=_WIN32_WINNT_WIN8;NTDDI_VERSION=NTDDI_WIN8;_WIN32_WINNT=_WIN32_WINNT_WIN8;_VARIADIC_MAX=10;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;UNICODE;_UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_DEBUG;WINRT;NO_GETENV;WINRT_STORE;WINVER=_WIN32_WINNT_WIN8;NTDDI_VERSION=NTDDI_WIN8;_WIN32_WINNT=_WIN32_WINNT_WIN8;_VARIADIC_MAX=10;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\zlib;C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\zlib;C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <Link>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\zlib;C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsC</CompileAs>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ProcessorNumber>8</ProcessorNumber>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;UNICODE;_UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;NDEBUG;WINRT;NO_GETENV;WINRT_STORE;WINVER=_WIN32_WINNT_WIN8;NTDDI_VERSION=NTDDI_WIN8;_WIN32_WINNT=_WIN32_WINNT_WIN8;_VARIADIC_MAX=10;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;UNICODE;_UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;NDEBUG;WINRT;NO_GETENV;WINRT_STORE;WINVER=_WIN32_WINNT_WIN8;NTDDI_VERSION=NTDDI_WIN8;_WIN32_WINNT=_WIN32_WINNT_WIN8;_VARIADIC_MAX=10;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\zlib;C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\zlib;C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <Link>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/Ilir/Projects/UWPOpenCV/opencv/3rdparty/zlib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+C:\Users\Ilir\Projects\CMake\Build\bin\Release\cmake.exe -HC:/Users/Ilir/Projects/UWPOpenCV/opencv -BC:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build --check-stamp-file C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\zlib\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/Users/Ilir/Projects/UWPOpenCV/opencv/3rdparty/zlib/CMakeLists.txt;C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\CMakeLists.txt;C:\Users\Ilir\Projects\CMake\Modules\CheckFunctionExists.cmake;C:\Users\Ilir\Projects\CMake\Modules\CheckIncludeFile.cmake;C:\Users\Ilir\Projects\CMake\Modules\CheckCSourceCompiles.cmake;C:\Users\Ilir\Projects\CMake\Modules\CheckTypeSize.cmake;C:\Users\Ilir\Projects\CMake\Modules\CheckIncludeFile.cmake;C:\Users\Ilir\Projects\CMake\Modules\CheckIncludeFileCXX.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\zconf.h.cmakein;C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\zlib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/Ilir/Projects/UWPOpenCV/opencv/3rdparty/zlib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+C:\Users\Ilir\Projects\CMake\Build\bin\Release\cmake.exe -HC:/Users/Ilir/Projects/UWPOpenCV/opencv -BC:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build --check-stamp-file C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\zlib\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/Users/Ilir/Projects/UWPOpenCV/opencv/3rdparty/zlib/CMakeLists.txt;C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\CMakeLists.txt;C:\Users\Ilir\Projects\CMake\Modules\CheckFunctionExists.cmake;C:\Users\Ilir\Projects\CMake\Modules\CheckIncludeFile.cmake;C:\Users\Ilir\Projects\CMake\Modules\CheckCSourceCompiles.cmake;C:\Users\Ilir\Projects\CMake\Modules\CheckTypeSize.cmake;C:\Users\Ilir\Projects\CMake\Modules\CheckIncludeFile.cmake;C:\Users\Ilir\Projects\CMake\Modules\CheckIncludeFileCXX.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\zconf.h.cmakein;C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\zlib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\3rdparty\zlib\zconf.h" />
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\zlib.h" />
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\crc32.h" />
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\deflate.h" />
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\gzguts.h" />
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\inffast.h" />
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\inffixed.h" />
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\inflate.h" />
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\inftrees.h" />
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\trees.h" />
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\zutil.h" />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\adler32.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\compress.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\crc32.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\deflate.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\gzclose.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\gzlib.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\gzread.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\gzwrite.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\inflate.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\infback.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\inftrees.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\inffast.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\trees.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\uncompr.c"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\3rdparty\zlib\zutil.c"  />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/ZERO_CHECK.vcxproj">
+      <Project>5C816D10-C536-3B37-B91A-3CE6C3537738</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

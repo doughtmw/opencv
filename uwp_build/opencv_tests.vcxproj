@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{022A0C4A-4C0F-35BD-B98B-0BD82AE0CF36}</ProjectGUID>
+    <ApplicationType>Windows Store</ApplicationType>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.17134.0</WindowsTargetPlatformMinVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>opencv_tests</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/Ilir/Projects/UWPOpenCV/opencv/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+C:\Users\Ilir\Projects\CMake\Build\bin\Release\cmake.exe -HC:/Users/Ilir/Projects/UWPOpenCV/opencv -BC:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build --check-stamp-file C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/Users/Ilir/Projects/UWPOpenCV/opencv/CMakeLists.txt;C:\Users\Ilir\Projects\UWPOpenCV\opencv\CMakeLists.txt;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVMinDepVersions.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\3.5.2\CMakeSystem.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\3.5.2\CMakeCXXCompiler.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\3.5.2\CMakeCCompiler.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeGenericSystem.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\WindowsStore.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\Windows.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\WindowsPaths.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeCXXInformation.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeLanguageInformation.cmake;C:\Users\Ilir\Projects\CMake\Modules\Compiler\MSVC-CXX.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\WindowsStore-MSVC-CXX.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\Windows-MSVC.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\3.5.2\CMakeRCCompiler.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeRCInformation.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeCInformation.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeLanguageInformation.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\WindowsStore-MSVC-C.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\Windows-MSVC-C.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\Windows-MSVC.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVUtils.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVDetectCXXCompiler.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVVersion.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\include\opencv2\core\version.hpp;C:\Users\Ilir\Projects\CMake\Modules\FindGit.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageMessage.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeParseArguments.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVCompilerOptions.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVCRTLinkage.cmake;C:\Users\Ilir\Projects\CMake\Modules\ProcessorCount.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVPCHSupport.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVModule.cmake;C:\Users\Ilir\Projects\CMake\Modules\TestBigEndian.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVFindLibsGrfmt.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVFindLibsGUI.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVFindLibsVideo.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\checks\vfwtest.cpp;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVFindLibsPerf.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVDetectPython.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPythonInterp.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageMessage.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeParseArguments.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPythonLibs.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeFindFrameworks.cmake;C:\Users\Ilir\Projects\CMake\Modules\SelectLibraryConfigurations.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageMessage.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeParseArguments.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPythonInterp.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageMessage.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeParseArguments.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPythonLibs.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeFindFrameworks.cmake;C:\Users\Ilir\Projects\CMake\Modules\SelectLibraryConfigurations.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageMessage.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeParseArguments.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVDetectApacheAnt.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindJNI.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeFindJavaCommon.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageMessage.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeParseArguments.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVFindMatlab.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVDetectVTK.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVExtraTargets.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\cmake_uninstall.cmake.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVGenHeaders.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\cvconfig.h.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\cvconfig.h.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\opencv_modules.hpp.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVGenPkgconfig.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\opencv-XXX.pc.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVGenAndroidMK.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVGenConfig.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\OpenCVConfig.cmake.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\OpenCVConfig-version.cmake.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\OpenCVConfig.cmake.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\OpenCVConfig-version.cmake.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVGenInfoPlist.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVGenABI.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVPackaging.cmake;C:\Users\Ilir\Projects\CMake\Modules\CPack.cmake;C:\Users\Ilir\Projects\CMake\Modules\CPackComponent.cmake;C:\Users\Ilir\Projects\CMake\Templates\CPackConfig.cmake.in;C:\Users\Ilir\Projects\CMake\Templates\CPackConfig.cmake.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/Ilir/Projects/UWPOpenCV/opencv/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+C:\Users\Ilir\Projects\CMake\Build\bin\Release\cmake.exe -HC:/Users/Ilir/Projects/UWPOpenCV/opencv -BC:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build --check-stamp-file C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/Users/Ilir/Projects/UWPOpenCV/opencv/CMakeLists.txt;C:\Users\Ilir\Projects\UWPOpenCV\opencv\CMakeLists.txt;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVMinDepVersions.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\3.5.2\CMakeSystem.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\3.5.2\CMakeCXXCompiler.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\3.5.2\CMakeCCompiler.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeGenericSystem.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\WindowsStore.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\Windows.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\WindowsPaths.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeCXXInformation.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeLanguageInformation.cmake;C:\Users\Ilir\Projects\CMake\Modules\Compiler\MSVC-CXX.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\WindowsStore-MSVC-CXX.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\Windows-MSVC.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\3.5.2\CMakeRCCompiler.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeRCInformation.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeCInformation.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeLanguageInformation.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\WindowsStore-MSVC-C.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\Windows-MSVC-C.cmake;C:\Users\Ilir\Projects\CMake\Modules\Platform\Windows-MSVC.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVUtils.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVDetectCXXCompiler.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVVersion.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\include\opencv2\core\version.hpp;C:\Users\Ilir\Projects\CMake\Modules\FindGit.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageMessage.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeParseArguments.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVCompilerOptions.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVCRTLinkage.cmake;C:\Users\Ilir\Projects\CMake\Modules\ProcessorCount.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVPCHSupport.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVModule.cmake;C:\Users\Ilir\Projects\CMake\Modules\TestBigEndian.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVFindLibsGrfmt.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVFindLibsGUI.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVFindLibsVideo.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\checks\vfwtest.cpp;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVFindLibsPerf.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVDetectPython.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPythonInterp.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageMessage.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeParseArguments.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPythonLibs.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeFindFrameworks.cmake;C:\Users\Ilir\Projects\CMake\Modules\SelectLibraryConfigurations.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageMessage.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeParseArguments.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPythonInterp.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageMessage.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeParseArguments.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPythonLibs.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeFindFrameworks.cmake;C:\Users\Ilir\Projects\CMake\Modules\SelectLibraryConfigurations.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageMessage.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeParseArguments.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVDetectApacheAnt.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindJNI.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeFindJavaCommon.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageHandleStandardArgs.cmake;C:\Users\Ilir\Projects\CMake\Modules\FindPackageMessage.cmake;C:\Users\Ilir\Projects\CMake\Modules\CMakeParseArguments.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVFindMatlab.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVDetectVTK.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVExtraTargets.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\cmake_uninstall.cmake.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVGenHeaders.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\cvconfig.h.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\cvconfig.h.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\opencv_modules.hpp.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVGenPkgconfig.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\opencv-XXX.pc.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVGenAndroidMK.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVGenConfig.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\OpenCVConfig.cmake.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\OpenCVConfig-version.cmake.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\OpenCVConfig.cmake.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\templates\OpenCVConfig-version.cmake.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVGenInfoPlist.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVGenABI.cmake;C:\Users\Ilir\Projects\UWPOpenCV\opencv\cmake\OpenCVPackaging.cmake;C:\Users\Ilir\Projects\CMake\Modules\CPack.cmake;C:\Users\Ilir\Projects\CMake\Modules\CPackComponent.cmake;C:\Users\Ilir\Projects\CMake\Templates\CPackConfig.cmake.in;C:\Users\Ilir\Projects\CMake\Templates\CPackConfig.cmake.in;C:\Users\Ilir\Projects\UWPOpenCV\opencv\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/ZERO_CHECK.vcxproj">
+      <Project>5C816D10-C536-3B37-B91A-3CE6C3537738</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/bioinspired/opencv_test_bioinspired.vcxproj">
+      <Project>FD86AAD8-960E-3B40-A1DB-C325C347C704</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/calib3d/opencv_test_calib3d.vcxproj">
+      <Project>A1BD384B-D33F-3204-8E28-985D3EFD730F</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/core/opencv_test_core.vcxproj">
+      <Project>ADD6E154-100E-3D4B-BAE1-D870E01EA834</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/features2d/opencv_test_features2d.vcxproj">
+      <Project>295DA531-3669-3613-ACCE-1B920B3F875A</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/flann/opencv_test_flann.vcxproj">
+      <Project>DFBD73CF-FA8F-3DE2-992F-D8AA504248D6</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/imgcodecs/opencv_test_imgcodecs.vcxproj">
+      <Project>3C4F20ED-FF23-36D1-99D2-F3B973CC7C9F</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/imgproc/opencv_test_imgproc.vcxproj">
+      <Project>265CE73F-8B6E-348B-93FD-4D825B742DC4</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/ml/opencv_test_ml.vcxproj">
+      <Project>A47DB677-45A1-3EB3-8157-3A7F5024055F</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/objdetect/opencv_test_objdetect.vcxproj">
+      <Project>EC1C0F12-2FC1-3065-BFD4-4C6438BCAD38</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/photo/opencv_test_photo.vcxproj">
+      <Project>6CCEF62B-7C1B-3C2D-9CFF-AE31A87A40B1</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/reg/opencv_test_reg.vcxproj">
+      <Project>171B235E-4BA9-3C61-AD27-413D7F261AB6</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/shape/opencv_test_shape.vcxproj">
+      <Project>4E7EC2A6-A8F9-3E16-9153-1BB2D80F7A76</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/stitching/opencv_test_stitching.vcxproj">
+      <Project>3674D3E1-E1B1-3FF3-83C4-21E782E28EE6</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/video/opencv_test_video.vcxproj">
+      <Project>7C8F6E5B-78CC-3C45-8250-59CB21B9C4E8</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/videoio/opencv_test_videoio.vcxproj">
+      <Project>C58FAC26-9414-3B1F-9E56-E0CD8CE57A94</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

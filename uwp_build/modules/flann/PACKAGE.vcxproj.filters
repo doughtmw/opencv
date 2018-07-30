@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\CMakeFiles\90898ff79dc36a970fe7d9d614341747\PACKAGE_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{023FBBFD-2D7F-320A-ADE2-1B067F750BF1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

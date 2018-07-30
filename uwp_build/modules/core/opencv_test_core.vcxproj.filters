@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\ocl\test_arithm.cpp">
+      <Filter>Src\ocl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\ocl\test_channels.cpp">
+      <Filter>Src\ocl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\ocl\test_dft.cpp">
+      <Filter>Src\ocl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\ocl\test_gemm.cpp">
+      <Filter>Src\ocl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\ocl\test_image2d.cpp">
+      <Filter>Src\ocl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\ocl\test_matrix_expr.cpp">
+      <Filter>Src\ocl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\ocl\test_matrix_operation.cpp">
+      <Filter>Src\ocl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_arithm.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_concatenation.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_conjugate_gradient.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_countnonzero.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_downhill_simplex.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_ds.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_dxt.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_eigen.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_hal_core.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_io.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_ippasync.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_lpsolver.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_main.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_mat.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_math.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_misc.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_operations.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_ptr.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_rand.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_rotatedrect.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_umat.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\core\opencv_test_core_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\test\test_precomp.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\core\opencv_test_core.dir\Windows_TemporaryKey.pfx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <AppxManifest Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\core\opencv_test_core.dir\package.appxManifest">
+      <Filter>Resource Files</Filter>
+    </AppxManifest>
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\core\opencv_test_core.dir\SmallLogo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\core\opencv_test_core.dir\SmallLogo44x44.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\core\opencv_test_core.dir\Logo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\core\opencv_test_core.dir\StoreLogo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\core\opencv_test_core.dir\SplashScreen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E04FA0AE-63BD-3D6F-AEE3-5182FD87F9C3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{CA0924E7-8235-3FAB-923E-E6173B406E01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{864CE264-5A6B-3A22-9BEF-4C543D280F46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\ocl">
+      <UniqueIdentifier>{E95F1AE1-2254-3F0B-A9BB-61E0416E174F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{0D68A9F0-8E7D-39DE-ACDB-91E2C1672FB3}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+</Project>

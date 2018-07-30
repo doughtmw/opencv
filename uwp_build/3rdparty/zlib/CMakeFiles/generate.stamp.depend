@@ -1,0 +1,9 @@
+# CMake generation dependency list for this directory.
+C:/Users/Ilir/Projects/UWPOpenCV/opencv/3rdparty/zlib/CMakeLists.txt
+C:/Users/Ilir/Projects/CMake/Modules/CheckFunctionExists.cmake
+C:/Users/Ilir/Projects/CMake/Modules/CheckIncludeFile.cmake
+C:/Users/Ilir/Projects/CMake/Modules/CheckCSourceCompiles.cmake
+C:/Users/Ilir/Projects/CMake/Modules/CheckTypeSize.cmake
+C:/Users/Ilir/Projects/CMake/Modules/CheckIncludeFile.cmake
+C:/Users/Ilir/Projects/CMake/Modules/CheckIncludeFileCXX.cmake
+C:/Users/Ilir/Projects/UWPOpenCV/opencv/3rdparty/zlib/zconf.h.cmakein

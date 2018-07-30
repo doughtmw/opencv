@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+C:/Users/Ilir/Projects/UWPOpenCV/opencv/3rdparty/libtiff/CMakeLists.txt
+C:/Users/Ilir/Projects/CMake/Modules/CheckFunctionExists.cmake
+C:/Users/Ilir/Projects/CMake/Modules/CheckIncludeFile.cmake
+C:/Users/Ilir/Projects/UWPOpenCV/opencv/3rdparty/libtiff/tif_config.h.cmakein

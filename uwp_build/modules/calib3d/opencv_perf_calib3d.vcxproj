@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{E13ED7F4-8E22-34A6-957A-965611C71DE4}</ProjectGUID>
+    <ApplicationType>Windows Store</ApplicationType>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.17134.0</WindowsTargetPlatformMinVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>opencv_perf_calib3d</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <AppxPackageArtifactsDir>opencv_perf_calib3d.dir\</AppxPackageArtifactsDir>
+    <ProjectPriFullPath>$(TargetDir)resources.pri</ProjectPriFullPath>
+    <PackageCertificateKeyFile>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\opencv_perf_calib3d.dir\Windows_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>F63AAC84A0884CDB0126C3CDEA991E36DF064B3E</PackageCertificateThumbprint>
+  </PropertyGroup>
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\bin\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_perf_calib3d.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_perf_calib3d</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\bin\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_perf_calib3d.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_perf_calib3d</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\imgcodecs\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\flann\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\imgproc\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ml\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\features2d\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\videoio\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\perf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4251;4324</DisableSpecificWarnings>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <ForcedIncludeFiles>C:/Users/Ilir/Projects/UWPOpenCV/opencv/modules/calib3d/perf/perf_precomp.hpp</ForcedIncludeFiles>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>C:/Users/Ilir/Projects/UWPOpenCV/opencv/modules/calib3d/perf/perf_precomp.hpp</PrecompiledHeaderFile>
+      <ProcessorNumber>8</ProcessorNumber>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;UNICODE;_UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_DEBUG;WINRT;NO_GETENV;WINRT_STORE;WINVER=_WIN32_WINNT_WIN8;NTDDI_VERSION=NTDDI_WIN8;_WIN32_WINNT=_WIN32_WINNT_WIN8;_VARIADIC_MAX=10;__OPENCV_BUILD=1;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;UNICODE;_UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_DEBUG;WINRT;NO_GETENV;WINRT_STORE;WINVER=_WIN32_WINNT_WIN8;NTDDI_VERSION=NTDDI_WIN8;_WIN32_WINNT=_WIN32_WINNT_WIN8;_VARIADIC_MAX=10;__OPENCV_BUILD=1;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\imgcodecs\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\flann\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\imgproc\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ml\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\features2d\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\videoio\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\perf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\imgcodecs\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\flann\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\imgproc\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ml\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\features2d\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\videoio\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\perf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+link.exe /edit /APPCONTAINER:NO $(TargetPath)
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>WindowsApp.lib;..\..\lib\Debug\opencv_calib3d300d.lib;..\..\lib\Debug\opencv_ts300d.lib;..\..\lib\Debug\opencv_hal300d.lib;..\..\lib\Debug\opencv_hal300d.lib;..\..\lib\Debug\opencv_videoio300d.lib;..\..\lib\Debug\opencv_hal300d.lib;..\..\lib\Debug\opencv_features2d300d.lib;..\..\lib\Debug\opencv_flann300d.lib;..\..\lib\Debug\opencv_ml300d.lib;..\..\lib\Debug\opencv_imgcodecs300d.lib;..\..\lib\Debug\opencv_imgproc300d.lib;..\..\lib\Debug\opencv_core300d.lib;..\..\lib\Debug\opencv_hal300d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EnableCOMDATFolding>false</EnableCOMDATFolding>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/bin/Debug/opencv_perf_calib3d.lib</ImportLibrary>
+      <OptimizeReferences>false</OptimizeReferences>
+      <ProgramDataBaseFile>C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/bin/Debug/opencv_perf_calib3d.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\imgcodecs\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\flann\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\imgproc\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ml\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\features2d\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\videoio\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\perf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4251;4324</DisableSpecificWarnings>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <ForcedIncludeFiles>C:/Users/Ilir/Projects/UWPOpenCV/opencv/modules/calib3d/perf/perf_precomp.hpp</ForcedIncludeFiles>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>C:/Users/Ilir/Projects/UWPOpenCV/opencv/modules/calib3d/perf/perf_precomp.hpp</PrecompiledHeaderFile>
+      <ProcessorNumber>8</ProcessorNumber>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;UNICODE;_UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;NDEBUG;WINRT;NO_GETENV;WINRT_STORE;WINVER=_WIN32_WINNT_WIN8;NTDDI_VERSION=NTDDI_WIN8;_WIN32_WINNT=_WIN32_WINNT_WIN8;_VARIADIC_MAX=10;__OPENCV_BUILD=1;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;UNICODE;_UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;NDEBUG;WINRT;NO_GETENV;WINRT_STORE;WINVER=_WIN32_WINNT_WIN8;NTDDI_VERSION=NTDDI_WIN8;_WIN32_WINNT=_WIN32_WINNT_WIN8;_VARIADIC_MAX=10;__OPENCV_BUILD=1;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\imgcodecs\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\flann\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\imgproc\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ml\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\features2d\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\videoio\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\perf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\imgcodecs\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\core\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\flann\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\imgproc\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ml\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\features2d\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\videoio\include;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\perf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+link.exe /edit /APPCONTAINER:NO $(TargetPath)
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>WindowsApp.lib;..\..\lib\Release\opencv_calib3d300.lib;..\..\lib\Release\opencv_ts300.lib;..\..\lib\Release\opencv_hal300.lib;..\..\lib\Release\opencv_hal300.lib;..\..\lib\Release\opencv_videoio300.lib;..\..\lib\Release\opencv_hal300.lib;..\..\lib\Release\opencv_features2d300.lib;..\..\lib\Release\opencv_flann300.lib;..\..\lib\Release\opencv_ml300.lib;..\..\lib\Release\opencv_imgcodecs300.lib;..\..\lib\Release\opencv_imgproc300.lib;..\..\lib\Release\opencv_core300.lib;..\..\lib\Release\opencv_hal300.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/bin/Release/opencv_perf_calib3d.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/bin/Release/opencv_perf_calib3d.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/Ilir/Projects/UWPOpenCV/opencv/modules/calib3d/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+C:\Users\Ilir\Projects\CMake\Build\bin\Release\cmake.exe -HC:/Users/Ilir/Projects/UWPOpenCV/opencv -BC:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build --check-stamp-file C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/Users/Ilir/Projects/UWPOpenCV/opencv/modules/calib3d/CMakeLists.txt;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\CMakeLists.txt;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/Ilir/Projects/UWPOpenCV/opencv/modules/calib3d/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+C:\Users\Ilir\Projects\CMake\Build\bin\Release\cmake.exe -HC:/Users/Ilir/Projects/UWPOpenCV/opencv -BC:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build --check-stamp-file C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/Users/Ilir/Projects/UWPOpenCV/opencv/modules/calib3d/CMakeLists.txt;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\CMakeLists.txt;C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\perf\perf_precomp.hpp" />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\perf\opencl\perf_stereobm.cpp"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\perf\perf_cicrlesGrid.cpp"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\perf\perf_main.cpp"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\calib3d\perf\perf_pnp.cpp"  />
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\opencv_perf_calib3d_pch.cpp" >
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/Users/Ilir/Projects/UWPOpenCV/opencv/modules/calib3d/perf/perf_precomp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/Users/Ilir/Projects/UWPOpenCV/opencv/modules/calib3d/perf/perf_precomp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <AppxManifest Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\opencv_perf_calib3d.dir\package.appxManifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\opencv_perf_calib3d.dir\SmallLogo.png" />
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\opencv_perf_calib3d.dir\SmallLogo44x44.png" />
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\opencv_perf_calib3d.dir\Logo.png" />
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\opencv_perf_calib3d.dir\StoreLogo.png" />
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\opencv_perf_calib3d.dir\SplashScreen.png" />
+    <None Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\calib3d\opencv_perf_calib3d.dir\Windows_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/ZERO_CHECK.vcxproj">
+      <Project>5C816D10-C536-3B37-B91A-3CE6C3537738</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/calib3d/opencv_calib3d.vcxproj">
+      <Project>8DF3B0B0-48F1-31DC-BFDD-BAD8D74E7DDE</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/core/opencv_core.vcxproj">
+      <Project>0B6901DF-3063-3298-9C38-3B67104CB5A0</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/features2d/opencv_features2d.vcxproj">
+      <Project>979E634B-1C12-33C2-A9F4-EA1FD5F99260</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/flann/opencv_flann.vcxproj">
+      <Project>7B5061A7-561B-3040-85DB-6A743C63FB8D</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/hal/opencv_hal.vcxproj">
+      <Project>F1D233CD-2E06-31CF-82C9-46F47228AD07</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/imgcodecs/opencv_imgcodecs.vcxproj">
+      <Project>ACA9B782-DABE-341E-85EB-C68A5C3F711D</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/imgproc/opencv_imgproc.vcxproj">
+      <Project>6046756D-65F2-3904-8538-1077A4CBBDFC</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/ml/opencv_ml.vcxproj">
+      <Project>99D55B16-EE01-37A0-B234-82D9EA999323</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/ts/opencv_ts.vcxproj">
+      <Project>AA11520B-8E00-3058-AE16-61B24466140A</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/Ilir/Projects/UWPOpenCV/opencv/uwp_build/modules/videoio/opencv_videoio.vcxproj">
+      <Project>03A2A4E2-C79C-3921-85EF-77F85133B119</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

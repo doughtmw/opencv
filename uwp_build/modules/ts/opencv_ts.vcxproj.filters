@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\src\cuda_perf.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\src\cuda_test.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\src\ocl_perf.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\src\ocl_test.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\src\ts.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\src\ts_arrtest.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\src\ts_func.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\src\ts_gtest.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\src\ts_perf.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\ts\opencv_ts_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include\opencv2\ts.hpp">
+      <Filter>Include\opencv2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include\opencv2\ts\cuda_perf.hpp">
+      <Filter>Include\opencv2\ts</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include\opencv2\ts\cuda_test.hpp">
+      <Filter>Include\opencv2\ts</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include\opencv2\ts\ocl_perf.hpp">
+      <Filter>Include\opencv2\ts</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include\opencv2\ts\ocl_test.hpp">
+      <Filter>Include\opencv2\ts</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include\opencv2\ts\ts_ext.hpp">
+      <Filter>Include\opencv2\ts</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include\opencv2\ts\ts_perf.hpp">
+      <Filter>Include\opencv2\ts</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\include\opencv2\ts\ts_gtest.h">
+      <Filter>Include\opencv2\ts</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\src\precomp.hpp">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\cvconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\opencv2\opencv_modules.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\ts\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E04FA0AE-63BD-3D6F-AEE3-5182FD87F9C3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{504E0750-E809-3FBB-9147-EE646D977025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{CA0924E7-8235-3FAB-923E-E6173B406E01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{864CE264-5A6B-3A22-9BEF-4C543D280F46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\opencv2">
+      <UniqueIdentifier>{09A1B7DB-0608-3580-BEDD-3662D4A6CEE0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\opencv2\ts">
+      <UniqueIdentifier>{25EFE052-9875-3AB4-86EB-159C4373598E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

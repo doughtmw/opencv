@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\photo\test\ocl\test_denoising.cpp">
+      <Filter>Src\ocl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\photo\test\test_cloning.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\photo\test\test_decolor.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\photo\test\test_denoise_tvl1.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\photo\test\test_denoising.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\photo\test\test_denoising.cuda.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\photo\test\test_hdr.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\photo\test\test_inpaint.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\photo\test\test_main.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\photo\test\test_npr.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\photo\opencv_test_photo_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\photo\test\test_precomp.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\photo\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\photo\opencv_test_photo.dir\Windows_TemporaryKey.pfx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <AppxManifest Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\photo\opencv_test_photo.dir\package.appxManifest">
+      <Filter>Resource Files</Filter>
+    </AppxManifest>
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\photo\opencv_test_photo.dir\SmallLogo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\photo\opencv_test_photo.dir\SmallLogo44x44.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\photo\opencv_test_photo.dir\Logo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\photo\opencv_test_photo.dir\StoreLogo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\photo\opencv_test_photo.dir\SplashScreen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E04FA0AE-63BD-3D6F-AEE3-5182FD87F9C3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{CA0924E7-8235-3FAB-923E-E6173B406E01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{864CE264-5A6B-3A22-9BEF-4C543D280F46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\ocl">
+      <UniqueIdentifier>{E95F1AE1-2254-3F0B-A9BB-61E0416E174F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{0D68A9F0-8E7D-39DE-ACDB-91E2C1672FB3}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+</Project>

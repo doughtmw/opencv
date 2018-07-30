@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\src\arithm.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\src\color.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\src\filter.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\src\mathfuncs.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\src\matrix.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\src\resize.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\src\stat.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\src\warp.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\modules\hal\opencv_hal_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\include\opencv2\hal.hpp">
+      <Filter>Include\opencv2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\include\opencv2\hal\intrin.hpp">
+      <Filter>Include\opencv2\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\include\opencv2\hal\intrin_cpp.hpp">
+      <Filter>Include\opencv2\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\include\opencv2\hal\intrin_neon.hpp">
+      <Filter>Include\opencv2\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\include\opencv2\hal\intrin_sse.hpp">
+      <Filter>Include\opencv2\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\include\opencv2\hal\defs.h">
+      <Filter>Include\opencv2\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\src\precomp.hpp">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\cvconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\uwp_build\opencv2\opencv_modules.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Ilir\Projects\UWPOpenCV\opencv\modules\hal\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Include\opencv2">
+      <UniqueIdentifier>{09A1B7DB-0608-3580-BEDD-3662D4A6CEE0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\opencv2\hal">
+      <UniqueIdentifier>{E421AB7F-D544-3403-B933-3D8DB0F307D1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E04FA0AE-63BD-3D6F-AEE3-5182FD87F9C3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{504E0750-E809-3FBB-9147-EE646D977025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{CA0924E7-8235-3FAB-923E-E6173B406E01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{864CE264-5A6B-3A22-9BEF-4C543D280F46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
