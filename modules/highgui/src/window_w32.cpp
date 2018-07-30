@@ -42,7 +42,7 @@
 #include "precomp.hpp"
 #include <windowsx.h> // required for GET_X_LPARAM() and GET_Y_LPARAM() macros
 
-#if defined WIN32 || defined _WIN32
+#if defined _WIN32
 
 #ifdef __GNUC__
 #  pragma GCC diagnostic ignored "-Wmissing-declarations"
@@ -65,7 +65,7 @@
 #include <vector>
 #include <functional>
 #include "opencv2/highgui.hpp"
-#include <GL\gl.h>
+#include <GL/gl.h>
 #endif
 
 static const char* trackbar_text =
@@ -138,6 +138,7 @@ typedef struct CvTrackbar
     int* data;
     int pos;
     int maxval;
+    int minval;
     void (*notify)(int);
     void (*notify2)(int, void*);
     void* userdata;
@@ -323,15 +324,34 @@ icvLoadWindowPos( const char* name, CvRect& rect )
         RegQueryValueEx(hkey, "Width", NULL, &dwType, (BYTE*)&rect.width, &dwSize);
         RegQueryValueEx(hkey, "Height", NULL, &dwType, (BYTE*)&rect.height, &dwSize);
 
-        if( rect.x != (int)CW_USEDEFAULT && (rect.x < -200 || rect.x > 3000) )
-            rect.x = 100;
-        if( rect.y != (int)CW_USEDEFAULT && (rect.y < -200 || rect.y > 3000) )
-            rect.y = 100;
+        // Snap rect into closest monitor in case it falls outside it. // Adi Shavit
+        // set WIN32 RECT to be the loaded size
+        POINT tl_w32 = { rect.x, rect.y };
+        POINT tr_w32 = { rect.x + rect.width, rect.y };
 
-        if( rect.width != (int)CW_USEDEFAULT && (rect.width < 0 || rect.width > 3000) )
-            rect.width = 100;
-        if( rect.height != (int)CW_USEDEFAULT && (rect.height < 0 || rect.height > 3000) )
-            rect.height = 100;
+        // find monitor containing top-left and top-right corners, or NULL
+        HMONITOR hMonitor_l = MonitorFromPoint(tl_w32, MONITOR_DEFAULTTONULL);
+        HMONITOR hMonitor_r = MonitorFromPoint(tr_w32, MONITOR_DEFAULTTONULL);
+
+        // if neither are contained - the move window to origin of closest.
+        if (NULL == hMonitor_l && NULL == hMonitor_r)
+        {
+           // find monitor nearest to top-left corner
+           HMONITOR hMonitor_closest = MonitorFromPoint(tl_w32, MONITOR_DEFAULTTONEAREST);
+
+           // get coordinates of nearest monitor
+           MONITORINFO mi;
+           mi.cbSize = sizeof(mi);
+           GetMonitorInfo(hMonitor_closest, &mi);
+
+           rect.x = mi.rcWork.left;
+           rect.y = mi.rcWork.top;
+        }
+
+        if (rect.width != (int)CW_USEDEFAULT && (rect.width < 0 || rect.width > 3000))
+           rect.width = 100;
+        if (rect.height != (int)CW_USEDEFAULT && (rect.height < 0 || rect.height > 3000))
+           rect.height = 100;
 
         RegCloseKey(hkey);
     }
@@ -401,6 +421,33 @@ icvSaveWindowPos( const char* name, CvRect rect )
     RegSetValueEx(hkey, "Width", 0, REG_DWORD, (BYTE*)&rect.width, sizeof(rect.width));
     RegSetValueEx(hkey, "Height", 0, REG_DWORD, (BYTE*)&rect.height, sizeof(rect.height));
     RegCloseKey(hkey);
+}
+
+CvRect cvGetWindowRect_W32(const char* name)
+{
+    CvRect result = cvRect(-1, -1, -1, -1);
+
+    CV_FUNCNAME( "cvGetWindowRect_W32" );
+
+    __BEGIN__;
+
+    CvWindow* window;
+
+    if (!name)
+        CV_ERROR( CV_StsNullPtr, "NULL name string" );
+    window = icvFindWindowByName( name );
+    if (!window)
+        EXIT; // keep silence here
+
+    RECT rect;
+    GetClientRect(window->hwnd, &rect);
+    {
+    POINT pt = {rect.left, rect.top};
+    ClientToScreen(window->hwnd, &pt);
+    result = cvRect(pt.x, pt.y, rect.right - rect.left, rect.bottom - rect.top);
+    }
+    __END__;
+    return result;
 }
 
 double cvGetModeWindow_W32(const char* name)//YV
@@ -1874,25 +1921,43 @@ static void showSaveDialog(CvWindow* window)
     ofn.lStructSize = sizeof(ofn);
 #endif
     ofn.hwndOwner = window->hwnd;
-    ofn.lpstrFilter = "Portable Network Graphics files (*.png)\0*.png\0"
-                      "JPEG files (*.jpeg;*.jpg;*.jpe)\0*.jpeg;*.jpg;*.jpe\0"
+    ofn.lpstrFilter =
+#ifdef HAVE_PNG
+                      "Portable Network Graphics files (*.png)\0*.png\0"
+#endif
                       "Windows bitmap (*.bmp;*.dib)\0*.bmp;*.dib\0"
+#ifdef HAVE_JPEG
+                      "JPEG files (*.jpeg;*.jpg;*.jpe)\0*.jpeg;*.jpg;*.jpe\0"
+#endif
+#ifdef HAVE_TIFF
                       "TIFF Files (*.tiff;*.tif)\0*.tiff;*.tif\0"
+#endif
+#ifdef HAVE_JASPER
                       "JPEG-2000 files (*.jp2)\0*.jp2\0"
+#endif
+#ifdef HAVE_WEBP
                       "WebP files (*.webp)\0*.webp\0"
+#endif
                       "Portable image format (*.pbm;*.pgm;*.ppm;*.pxm;*.pnm)\0*.pbm;*.pgm;*.ppm;*.pxm;*.pnm\0"
+#ifdef HAVE_OPENEXR
                       "OpenEXR Image files (*.exr)\0*.exr\0"
+#endif
                       "Radiance HDR (*.hdr;*.pic)\0*.hdr;*.pic\0"
                       "Sun raster files (*.sr;*.ras)\0*.sr;*.ras\0"
                       "All Files (*.*)\0*.*\0";
     ofn.lpstrFile = szFileName;
     ofn.nMaxFile = MAX_PATH;
     ofn.Flags = OFN_EXPLORER | OFN_PATHMUSTEXIST | OFN_OVERWRITEPROMPT | OFN_NOREADONLYRETURN | OFN_NOCHANGEDIR;
+#ifdef HAVE_PNG
     ofn.lpstrDefExt = "png";
+#else
+    ofn.lpstrDefExt = "bmp";
+#endif
 
     if (GetSaveFileName(&ofn))
     {
-        cv::Mat tmp; cv::flip(cv::Mat(sz.cy, sz.cx, CV_8UC(channels), data), tmp, 0);
+        cv::Mat tmp;
+        cv::flip(cv::Mat(sz.cy, sz.cx, CV_8UC(channels), data, (sz.cx * channels + 3) & -4), tmp, 0);
         cv::imwrite(szFileName, tmp);
     }
 }
@@ -1900,7 +1965,8 @@ static void showSaveDialog(CvWindow* window)
 CV_IMPL int
 cvWaitKey( int delay )
 {
-    int time0 = GetTickCount();
+    int64 time0 = cv::getTickCount();
+    int64 timeEnd = time0 + (int64)(delay * 0.001f * cv::getTickFrequency());
 
     for(;;)
     {
@@ -1908,13 +1974,13 @@ cvWaitKey( int delay )
         MSG message;
         int is_processed = 0;
 
-        if( (delay > 0 && abs((int)(GetTickCount() - time0)) >= delay) || hg_windows == 0 )
-            return -1;
-
         if( delay <= 0 )
             GetMessage(&message, 0, 0, 0);
         else if( PeekMessage(&message, 0, 0, 0, PM_REMOVE) == FALSE )
         {
+            int64 t = cv::getTickCount();
+            if (t - timeEnd >= 0)
+                return -1;  // no messages and no more time
             Sleep(1);
             continue;
         }
@@ -2019,8 +2085,8 @@ icvCreateTrackbar( const char* trackbar_name, const char* window_name,
     trackbar = icvFindTrackbarByName(window,trackbar_name);
     if( !trackbar )
     {
-        TBBUTTON tbs = {0};
-        TBBUTTONINFO tbis = {0};
+        TBBUTTON tbs = {};
+        TBBUTTONINFO tbis = {};
         RECT rect;
         int bcount;
         int len = (int)strlen( trackbar_name );
@@ -2307,8 +2373,40 @@ CV_IMPL void cvSetTrackbarMax(const char* trackbar_name, const char* window_name
             if (trackbar)
             {
                 // The position will be min(pos, maxval).
-                trackbar->maxval = maxval;
+                trackbar->maxval = (trackbar->minval>maxval)?trackbar->minval:maxval;
                 SendMessage(trackbar->hwnd, TBM_SETRANGEMAX, (WPARAM)TRUE, (LPARAM)maxval);
+            }
+        }
+    }
+
+    __END__;
+}
+
+
+CV_IMPL void cvSetTrackbarMin(const char* trackbar_name, const char* window_name, int minval)
+{
+    CV_FUNCNAME( "cvSetTrackbarMin" );
+
+    __BEGIN__;
+
+    if (minval >= 0)
+    {
+        CvWindow* window = 0;
+        CvTrackbar* trackbar = 0;
+        if (trackbar_name == 0 || window_name == 0)
+        {
+            CV_ERROR(CV_StsNullPtr, "NULL trackbar or window name");
+        }
+
+        window = icvFindWindowByName(window_name);
+        if (window)
+        {
+            trackbar = icvFindTrackbarByName(window, trackbar_name);
+            if (trackbar)
+            {
+                // The position will be min(pos, maxval).
+                trackbar->minval = (minval<trackbar->maxval)?minval:trackbar->maxval;
+                SendMessage(trackbar->hwnd, TBM_SETRANGEMIN, (WPARAM)TRUE, (LPARAM)minval);
             }
         }
     }
@@ -2375,4 +2473,4 @@ cvSetPostprocessFuncWin32_(const void* callback)
     hg_on_postprocess = (CvWin32WindowCallback)callback;
 }
 
-#endif //WIN32
+#endif //_WIN32

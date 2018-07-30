@@ -44,6 +44,8 @@
 #include "precomp.hpp"
 #include "opencl_kernels_imgproc.hpp"
 
+#include "opencv2/core/openvx/ovx_defs.hpp"
+
 namespace cv
 {
 
@@ -858,10 +860,10 @@ pyrDown_( const Mat& _src, Mat& _dst, int borderType )
     int cn = _src.channels();
     int bufstep = (int)alignSize(dsize.width*cn, 16);
     AutoBuffer<WT> _buf(bufstep*PD_SZ + 16);
-    WT* buf = alignPtr((WT*)_buf, 16);
+    WT* buf = alignPtr((WT*)_buf.data(), 16);
     int tabL[CV_CN_MAX*(PD_SZ+2)], tabR[CV_CN_MAX*(PD_SZ+2)];
     AutoBuffer<int> _tabM(dsize.width*cn);
-    int* tabM = _tabM;
+    int* tabM = _tabM.data();
     WT* rows[PD_SZ];
     CastOp castOp;
     VecOp vecOp;
@@ -982,9 +984,9 @@ pyrUp_( const Mat& _src, Mat& _dst, int)
     int cn = _src.channels();
     int bufstep = (int)alignSize((dsize.width+1)*cn, 16);
     AutoBuffer<WT> _buf(bufstep*PU_SZ + 16);
-    WT* buf = alignPtr((WT*)_buf, 16);
+    WT* buf = alignPtr((WT*)_buf.data(), 16);
     AutoBuffer<int> _dtab(ssize.width*cn);
-    int* dtab = _dtab;
+    int* dtab = _dtab.data();
     WT* rows[PU_SZ];
     T* dsts[2];
     CastOp castOp;
@@ -1010,7 +1012,7 @@ pyrUp_( const Mat& _src, Mat& _dst, int)
         for( ; sy <= y + 1; sy++ )
         {
             WT* row = buf + ((sy - sy0) % PU_SZ)*bufstep;
-            int _sy = borderInterpolate(sy*2, dsize.height, BORDER_REFLECT_101)/2;
+            int _sy = borderInterpolate(sy*2, ssize.height*2, BORDER_REFLECT_101)/2;
             const T* src = _src.ptr<T>(_sy);
 
             if( ssize.width == cn )
@@ -1031,6 +1033,11 @@ pyrUp_( const Mat& _src, Mat& _dst, int)
                 t0 = src[sx - cn] + src[sx]*7;
                 t1 = src[sx]*8;
                 row[dx] = t0; row[dx + cn] = t1;
+
+                if (dsize.width > ssize.width*2)
+                {
+                    row[(_dst.cols-1) + x] = row[dx + cn];
+                }
             }
 
             for( x = cn; x < ssize.width - cn; x++ )
@@ -1055,6 +1062,17 @@ pyrUp_( const Mat& _src, Mat& _dst, int)
             T t1 = castOp((row1[x] + row2[x])*4);
             T t0 = castOp(row0[x] + row1[x]*6 + row2[x]);
             dst1[x] = t1; dst0[x] = t0;
+        }
+    }
+
+    if (dsize.height > ssize.height*2)
+    {
+        T* dst0 = _dst.ptr<T>(ssize.height*2-2);
+        T* dst2 = _dst.ptr<T>(ssize.height*2);
+
+        for(x = 0; x < dsize.width ; x++ )
+        {
+            dst2[x] = dst0[x];
         }
     }
 }
@@ -1107,8 +1125,8 @@ static bool ocl_pyrDown( InputArray _src, OutputArray _dst, const Size& _dsz, in
 
     k.args(ocl::KernelArg::ReadOnly(src), ocl::KernelArg::WriteOnly(dst));
 
-    size_t localThreads[2]  = { local_size/kercn, 1 };
-    size_t globalThreads[2] = { (src.cols + (kercn-1))/kercn, (dst.rows + 1) / 2 };
+    size_t localThreads[2]  = { (size_t)local_size/kercn, 1 };
+    size_t globalThreads[2] = { ((size_t)src.cols + (kercn-1))/kercn, ((size_t)dst.rows + 1) / 2 };
     return k.run(2, globalThreads, localThreads, false);
 }
 
@@ -1144,13 +1162,22 @@ static bool ocl_pyrUp( InputArray _src, OutputArray _dst, const Size& _dsz, int 
             doubleSupport ? " -D DOUBLE_SUPPORT" : "",
             ocl::typeToStr(depth), channels, local_size
     );
-    size_t globalThreads[2] = { dst.cols, dst.rows };
-    size_t localThreads[2] = { local_size, local_size };
+    size_t globalThreads[2] = { (size_t)dst.cols, (size_t)dst.rows };
+    size_t localThreads[2] = { (size_t)local_size, (size_t)local_size };
     ocl::Kernel k;
     if (ocl::Device::getDefault().isIntel() && channels == 1)
     {
-        k.create("pyrUp_unrolled", ocl::imgproc::pyr_up_oclsrc, buildOptions);
-        globalThreads[0] = dst.cols/2; globalThreads[1] = dst.rows/2;
+        if (type == CV_8UC1 && src.cols % 2 == 0)
+        {
+            buildOptions.clear();
+            k.create("pyrUp_cols2", ocl::imgproc::pyramid_up_oclsrc, buildOptions);
+            globalThreads[0] = dst.cols/4; globalThreads[1] = dst.rows/2;
+        }
+        else
+        {
+            k.create("pyrUp_unrolled", ocl::imgproc::pyr_up_oclsrc, buildOptions);
+            globalThreads[0] = dst.cols/2; globalThreads[1] = dst.rows/2;
+        }
     }
     else
         k.create("pyrUp", ocl::imgproc::pyr_up_oclsrc, buildOptions);
@@ -1166,103 +1193,24 @@ static bool ocl_pyrUp( InputArray _src, OutputArray _dst, const Size& _dsz, int 
 
 }
 
-void cv::pyrDown( InputArray _src, OutputArray _dst, const Size& _dsz, int borderType )
+#if defined(HAVE_IPP)
+namespace cv
 {
-    CV_Assert(borderType != BORDER_CONSTANT);
+static bool ipp_pyrdown( InputArray _src, OutputArray _dst, const Size& _dsz, int borderType )
+{
+    CV_INSTRUMENT_REGION_IPP()
 
-    CV_OCL_RUN(_src.dims() <= 2 && _dst.isUMat(),
-               ocl_pyrDown(_src, _dst, _dsz, borderType))
+#if IPP_VERSION_X100 >= 810 && !IPP_DISABLE_PYRAMIDS_DOWN
+    Size dsz = _dsz.area() == 0 ? Size((_src.cols() + 1)/2, (_src.rows() + 1)/2) : _dsz;
+    bool isolated = (borderType & BORDER_ISOLATED) != 0;
+    int borderTypeNI = borderType & ~BORDER_ISOLATED;
 
     Mat src = _src.getMat();
-    Size dsz = _dsz.area() == 0 ? Size((src.cols + 1)/2, (src.rows + 1)/2) : _dsz;
     _dst.create( dsz, src.type() );
     Mat dst = _dst.getMat();
     int depth = src.depth();
 
-#ifdef HAVE_TEGRA_OPTIMIZATION
-    if(borderType == BORDER_DEFAULT && tegra::useTegra() && tegra::pyrDown(src, dst))
-        return;
-#endif
 
-#if IPP_VERSION_X100 >= 801 && 0
-    CV_IPP_CHECK()
-    {
-        bool isolated = (borderType & BORDER_ISOLATED) != 0;
-        int borderTypeNI = borderType & ~BORDER_ISOLATED;
-        if (borderTypeNI == BORDER_DEFAULT && (!src.isSubmatrix() || isolated) && dsz == Size((src.cols + 1)/2, (src.rows + 1)/2))
-        {
-            typedef IppStatus (CV_STDCALL * ippiPyrDown)(const void* pSrc, int srcStep, void* pDst, int dstStep, IppiSize srcRoi, Ipp8u* buffer);
-            int type = src.type();
-            CV_SUPPRESS_DEPRECATED_START
-            ippiPyrDown pyrDownFunc = type == CV_8UC1 ? (ippiPyrDown) ippiPyrDown_Gauss5x5_8u_C1R :
-                                      type == CV_8UC3 ? (ippiPyrDown) ippiPyrDown_Gauss5x5_8u_C3R :
-                                      type == CV_32FC1 ? (ippiPyrDown) ippiPyrDown_Gauss5x5_32f_C1R :
-                                      type == CV_32FC3 ? (ippiPyrDown) ippiPyrDown_Gauss5x5_32f_C3R : 0;
-            CV_SUPPRESS_DEPRECATED_END
-
-            if (pyrDownFunc)
-            {
-                int bufferSize;
-                IppiSize srcRoi = { src.cols, src.rows };
-                IppDataType dataType = depth == CV_8U ? ipp8u : ipp32f;
-                CV_SUPPRESS_DEPRECATED_START
-                IppStatus ok = ippiPyrDownGetBufSize_Gauss5x5(srcRoi.width, dataType, src.channels(), &bufferSize);
-                CV_SUPPRESS_DEPRECATED_END
-                if (ok >= 0)
-                {
-                    Ipp8u* buffer = ippsMalloc_8u(bufferSize);
-                    ok = pyrDownFunc(src.data, (int) src.step, dst.data, (int) dst.step, srcRoi, buffer);
-                    ippsFree(buffer);
-
-                    if (ok >= 0)
-                    {
-                        CV_IMPL_ADD(CV_IMPL_IPP);
-                        return;
-                    }
-                    setIppErrorStatus();
-                }
-            }
-        }
-    }
-#endif
-
-    PyrFunc func = 0;
-    if( depth == CV_8U )
-        func = pyrDown_<FixPtCast<uchar, 8>, PyrDownVec_32s8u>;
-    else if( depth == CV_16S )
-        func = pyrDown_<FixPtCast<short, 8>, PyrDownVec_32s16s >;
-    else if( depth == CV_16U )
-        func = pyrDown_<FixPtCast<ushort, 8>, PyrDownVec_32s16u >;
-    else if( depth == CV_32F )
-        func = pyrDown_<FltCast<float, 8>, PyrDownVec_32f>;
-    else if( depth == CV_64F )
-        func = pyrDown_<FltCast<double, 8>, PyrDownNoVec<double, double> >;
-    else
-        CV_Error( CV_StsUnsupportedFormat, "" );
-
-    func( src, dst, borderType );
-}
-
-void cv::pyrUp( InputArray _src, OutputArray _dst, const Size& _dsz, int borderType )
-{
-    CV_Assert(borderType == BORDER_DEFAULT);
-
-    CV_OCL_RUN(_src.dims() <= 2 && _dst.isUMat(),
-               ocl_pyrUp(_src, _dst, _dsz, borderType))
-
-    Mat src = _src.getMat();
-    Size dsz = _dsz.area() == 0 ? Size(src.cols*2, src.rows*2) : _dsz;
-    _dst.create( dsz, src.type() );
-    Mat dst = _dst.getMat();
-    int depth = src.depth();
-
-#ifdef HAVE_TEGRA_OPTIMIZATION
-    if(borderType == BORDER_DEFAULT && tegra::useTegra() && tegra::pyrUp(src, dst))
-        return;
-#endif
-
-#if IPP_VERSION_X100 >= 801 && 0
-    CV_IPP_CHECK()
     {
         bool isolated = (borderType & BORDER_ISOLATED) != 0;
         int borderTypeNI = borderType & ~BORDER_ISOLATED;
@@ -1287,21 +1235,236 @@ void cv::pyrUp( InputArray _src, OutputArray _dst, const Size& _dsz, int borderT
                 CV_SUPPRESS_DEPRECATED_END
                 if (ok >= 0)
                 {
-                    Ipp8u* buffer = ippsMalloc_8u(bufferSize);
+                    Ipp8u* buffer = ippsMalloc_8u_L(bufferSize);
                     ok = pyrUpFunc(src.data, (int) src.step, dst.data, (int) dst.step, srcRoi, buffer);
                     ippsFree(buffer);
 
                     if (ok >= 0)
                     {
                         CV_IMPL_ADD(CV_IMPL_IPP);
-                        return;
+                        return true;
                     }
-                    setIppErrorStatus();
                 }
             }
         }
     }
+#else
+    CV_UNUSED(_src); CV_UNUSED(_dst); CV_UNUSED(_dsz); CV_UNUSED(borderType);
 #endif
+    return false;
+}
+}
+#endif
+
+#ifdef HAVE_OPENVX
+namespace cv
+{
+static bool openvx_pyrDown( InputArray _src, OutputArray _dst, const Size& _dsz, int borderType )
+{
+    using namespace ivx;
+
+    Mat srcMat = _src.getMat();
+
+    if (ovx::skipSmallImages<VX_KERNEL_HALFSCALE_GAUSSIAN>(srcMat.cols, srcMat.rows))
+        return false;
+
+    CV_Assert(!srcMat.empty());
+
+    Size ssize = _src.size();
+    Size acceptableSize = Size((ssize.width + 1) / 2, (ssize.height + 1) / 2);
+
+    // OpenVX limitations
+    if((srcMat.type() != CV_8U) ||
+       (borderType != BORDER_REPLICATE) ||
+       (_dsz != acceptableSize && _dsz.area() != 0))
+        return false;
+
+    // The only border mode which is supported by both cv::pyrDown() and OpenVX
+    // and produces predictable results
+    ivx::border_t borderMode;
+    borderMode.mode = VX_BORDER_REPLICATE;
+
+    _dst.create( acceptableSize, srcMat.type() );
+    Mat dstMat = _dst.getMat();
+
+    CV_Assert( ssize.width > 0 && ssize.height > 0 &&
+            std::abs(acceptableSize.width*2 - ssize.width) <= 2 &&
+            std::abs(acceptableSize.height*2 - ssize.height) <= 2 );
+
+    try
+    {
+        Context context = ovx::getOpenVXContext();
+        if(context.vendorID() == VX_ID_KHRONOS)
+        {
+            // This implementation performs floor-like rounding
+            // (OpenCV uses floor(x+0.5)-like rounding)
+            // and ignores border mode (and loses 1px size border)
+            return false;
+        }
+
+        Image srcImg = Image::createFromHandle(context, Image::matTypeToFormat(srcMat.type()),
+                                               Image::createAddressing(srcMat), (void*)srcMat.data);
+        Image dstImg = Image::createFromHandle(context, Image::matTypeToFormat(dstMat.type()),
+                                               Image::createAddressing(dstMat), (void*)dstMat.data);
+
+        ivx::Scalar kernelSize = ivx::Scalar::create<VX_TYPE_INT32>(context, 5);
+        Graph graph = Graph::create(context);
+        ivx::Node halfNode = ivx::Node::create(graph, VX_KERNEL_HALFSCALE_GAUSSIAN, srcImg, dstImg, kernelSize);
+        halfNode.setBorder(borderMode);
+        graph.verify();
+        graph.process();
+
+#ifdef VX_VERSION_1_1
+        //we should take user memory back before release
+        //(it's not done automatically according to standard)
+        srcImg.swapHandle(); dstImg.swapHandle();
+#endif
+    }
+    catch (RuntimeError & e)
+    {
+        VX_DbgThrow(e.what());
+    }
+    catch (WrapperError & e)
+    {
+        VX_DbgThrow(e.what());
+    }
+
+    return true;
+}
+
+}
+#endif
+
+void cv::pyrDown( InputArray _src, OutputArray _dst, const Size& _dsz, int borderType )
+{
+    CV_INSTRUMENT_REGION()
+
+    CV_Assert(borderType != BORDER_CONSTANT);
+
+    CV_OCL_RUN(_src.dims() <= 2 && _dst.isUMat(),
+               ocl_pyrDown(_src, _dst, _dsz, borderType))
+
+    CV_OVX_RUN(_src.dims() <= 2,
+               openvx_pyrDown(_src, _dst, _dsz, borderType))
+
+    Mat src = _src.getMat();
+    Size dsz = _dsz.area() == 0 ? Size((src.cols + 1)/2, (src.rows + 1)/2) : _dsz;
+    _dst.create( dsz, src.type() );
+    Mat dst = _dst.getMat();
+    int depth = src.depth();
+
+    CALL_HAL(pyrDown, cv_hal_pyrdown, src.data, src.step, src.cols, src.rows, dst.data, dst.step, dst.cols, dst.rows, depth, src.channels(), borderType);
+
+#ifdef HAVE_IPP
+    bool isolated = (borderType & BORDER_ISOLATED) != 0;
+    int borderTypeNI = borderType & ~BORDER_ISOLATED;
+#endif
+    CV_IPP_RUN(borderTypeNI == BORDER_DEFAULT && (!_src.isSubmatrix() || isolated) && dsz == Size((_src.cols() + 1)/2, (_src.rows() + 1)/2),
+        ipp_pyrdown( _src,  _dst,  _dsz,  borderType));
+
+
+    PyrFunc func = 0;
+    if( depth == CV_8U )
+        func = pyrDown_<FixPtCast<uchar, 8>, PyrDownVec_32s8u>;
+    else if( depth == CV_16S )
+        func = pyrDown_<FixPtCast<short, 8>, PyrDownVec_32s16s >;
+    else if( depth == CV_16U )
+        func = pyrDown_<FixPtCast<ushort, 8>, PyrDownVec_32s16u >;
+    else if( depth == CV_32F )
+        func = pyrDown_<FltCast<float, 8>, PyrDownVec_32f>;
+    else if( depth == CV_64F )
+        func = pyrDown_<FltCast<double, 8>, PyrDownNoVec<double, double> >;
+    else
+        CV_Error( CV_StsUnsupportedFormat, "" );
+
+    func( src, dst, borderType );
+}
+
+
+#if defined(HAVE_IPP)
+namespace cv
+{
+static bool ipp_pyrup( InputArray _src, OutputArray _dst, const Size& _dsz, int borderType )
+{
+    CV_INSTRUMENT_REGION_IPP()
+
+#if IPP_VERSION_X100 >= 810 && !IPP_DISABLE_PYRAMIDS_UP
+    Size sz = _src.dims() <= 2 ? _src.size() : Size();
+    Size dsz = _dsz.area() == 0 ? Size(_src.cols()*2, _src.rows()*2) : _dsz;
+
+    Mat src = _src.getMat();
+    _dst.create( dsz, src.type() );
+    Mat dst = _dst.getMat();
+    int depth = src.depth();
+
+    {
+        bool isolated = (borderType & BORDER_ISOLATED) != 0;
+        int borderTypeNI = borderType & ~BORDER_ISOLATED;
+        if (borderTypeNI == BORDER_DEFAULT && (!src.isSubmatrix() || isolated) && dsz == Size(src.cols*2, src.rows*2))
+        {
+            typedef IppStatus (CV_STDCALL * ippiPyrUp)(const void* pSrc, int srcStep, void* pDst, int dstStep, IppiSize srcRoi, Ipp8u* buffer);
+            int type = src.type();
+            CV_SUPPRESS_DEPRECATED_START
+            ippiPyrUp pyrUpFunc = type == CV_8UC1 ? (ippiPyrUp) ippiPyrUp_Gauss5x5_8u_C1R :
+                                  type == CV_8UC3 ? (ippiPyrUp) ippiPyrUp_Gauss5x5_8u_C3R :
+                                  type == CV_32FC1 ? (ippiPyrUp) ippiPyrUp_Gauss5x5_32f_C1R :
+                                  type == CV_32FC3 ? (ippiPyrUp) ippiPyrUp_Gauss5x5_32f_C3R : 0;
+            CV_SUPPRESS_DEPRECATED_END
+
+            if (pyrUpFunc)
+            {
+                int bufferSize;
+                IppiSize srcRoi = { src.cols, src.rows };
+                IppDataType dataType = depth == CV_8U ? ipp8u : ipp32f;
+                CV_SUPPRESS_DEPRECATED_START
+                IppStatus ok = ippiPyrUpGetBufSize_Gauss5x5(srcRoi.width, dataType, src.channels(), &bufferSize);
+                CV_SUPPRESS_DEPRECATED_END
+                if (ok >= 0)
+                {
+                    Ipp8u* buffer = ippsMalloc_8u_L(bufferSize);
+                    ok = pyrUpFunc(src.data, (int) src.step, dst.data, (int) dst.step, srcRoi, buffer);
+                    ippsFree(buffer);
+
+                    if (ok >= 0)
+                    {
+                        CV_IMPL_ADD(CV_IMPL_IPP);
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+#else
+    CV_UNUSED(_src); CV_UNUSED(_dst); CV_UNUSED(_dsz); CV_UNUSED(borderType);
+#endif
+    return false;
+}
+}
+#endif
+
+void cv::pyrUp( InputArray _src, OutputArray _dst, const Size& _dsz, int borderType )
+{
+    CV_INSTRUMENT_REGION()
+
+    CV_Assert(borderType == BORDER_DEFAULT);
+
+    CV_OCL_RUN(_src.dims() <= 2 && _dst.isUMat(),
+               ocl_pyrUp(_src, _dst, _dsz, borderType))
+
+
+    Mat src = _src.getMat();
+    Size dsz = _dsz.area() == 0 ? Size(src.cols*2, src.rows*2) : _dsz;
+    _dst.create( dsz, src.type() );
+    Mat dst = _dst.getMat();
+    int depth = src.depth();
+
+#ifdef HAVE_IPP
+    bool isolated = (borderType & BORDER_ISOLATED) != 0;
+    int borderTypeNI = borderType & ~BORDER_ISOLATED;
+#endif
+    CV_IPP_RUN(borderTypeNI == BORDER_DEFAULT && (!_src.isSubmatrix() || isolated) && dsz == Size(_src.cols()*2, _src.rows()*2),
+        ipp_pyrup( _src,  _dst,  _dsz,  borderType));
+
 
     PyrFunc func = 0;
     if( depth == CV_8U )
@@ -1320,28 +1483,21 @@ void cv::pyrUp( InputArray _src, OutputArray _dst, const Size& _dsz, int borderT
     func( src, dst, borderType );
 }
 
-void cv::buildPyramid( InputArray _src, OutputArrayOfArrays _dst, int maxlevel, int borderType )
+
+#ifdef HAVE_IPP
+namespace cv
 {
-    CV_Assert(borderType != BORDER_CONSTANT);
+static bool ipp_buildpyramid( InputArray _src, OutputArrayOfArrays _dst, int maxlevel, int borderType )
+{
+    CV_INSTRUMENT_REGION_IPP()
 
-    if (_src.dims() <= 2 && _dst.isUMatVector())
-    {
-        UMat src = _src.getUMat();
-        _dst.create( maxlevel + 1, 1, 0 );
-        _dst.getUMatRef(0) = src;
-        for( int i = 1; i <= maxlevel; i++ )
-            pyrDown( _dst.getUMatRef(i-1), _dst.getUMatRef(i), Size(), borderType );
-        return;
-    }
-
+#if IPP_VERSION_X100 >= 810 && !IPP_DISABLE_PYRAMIDS_BUILD
     Mat src = _src.getMat();
     _dst.create( maxlevel + 1, 1, 0 );
     _dst.getMatRef(0) = src;
 
     int i=1;
 
-#if IPP_VERSION_X100 >= 801 && 0
-    CV_IPP_CHECK()
     {
         bool isolated = (borderType & BORDER_ISOLATED) != 0;
         int borderTypeNI = borderType & ~BORDER_ISOLATED;
@@ -1414,8 +1570,8 @@ void cv::buildPyramid( InputArray _src, OutputArrayOfArrays _dst, int maxlevel, 
 
                         if (ok < 0)
                         {
-                            setIppErrorStatus();
-                            break;
+                            pyrFreeFunc(gPyr->pState);
+                            return false;
                         }
                         else
                         {
@@ -1425,13 +1581,49 @@ void cv::buildPyramid( InputArray _src, OutputArrayOfArrays _dst, int maxlevel, 
                     pyrFreeFunc(gPyr->pState);
                 }
                 else
-                    setIppErrorStatus();
-
+                {
+                    ippiPyramidFree(gPyr);
+                    return false;
+                }
                 ippiPyramidFree(gPyr);
             }
+            return true;
         }
+        return false;
     }
+#else
+    CV_UNUSED(_src); CV_UNUSED(_dst); CV_UNUSED(maxlevel); CV_UNUSED(borderType);
 #endif
+    return false;
+}
+}
+#endif
+
+void cv::buildPyramid( InputArray _src, OutputArrayOfArrays _dst, int maxlevel, int borderType )
+{
+    CV_INSTRUMENT_REGION()
+
+    CV_Assert(borderType != BORDER_CONSTANT);
+
+    if (_src.dims() <= 2 && _dst.isUMatVector())
+    {
+        UMat src = _src.getUMat();
+        _dst.create( maxlevel + 1, 1, 0 );
+        _dst.getUMatRef(0) = src;
+        for( int i = 1; i <= maxlevel; i++ )
+            pyrDown( _dst.getUMatRef(i-1), _dst.getUMatRef(i), Size(), borderType );
+        return;
+    }
+
+    Mat src = _src.getMat();
+    _dst.create( maxlevel + 1, 1, 0 );
+    _dst.getMatRef(0) = src;
+
+    int i=1;
+
+    CV_IPP_RUN(((IPP_VERSION_X100 >= 810) && ((borderType & ~BORDER_ISOLATED) == BORDER_DEFAULT && (!_src.isSubmatrix() || ((borderType & BORDER_ISOLATED) != 0)))),
+        ipp_buildpyramid( _src,  _dst,  maxlevel,  borderType));
+
     for( ; i <= maxlevel; i++ )
         pyrDown( _dst.getMatRef(i-1), _dst.getMatRef(i), Size(), borderType );
 }

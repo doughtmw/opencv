@@ -40,23 +40,10 @@
 //M*/
 
 #include "precomp.hpp"
-#include "cap_intelperc.hpp"
-#include "cap_dshow.hpp"
 
-// All WinRT versions older than 8.0 should provide classes used for video support
-#if defined(WINRT) && !defined(WINRT_8_0)
-#   include "cap_winrt_capture.hpp"
-#   include "cap_winrt_bridge.hpp"
-#   define WINRT_VIDEO
-#endif
+#include "videoio_registry.hpp"
 
-#if defined _M_X64 && defined _MSC_VER && !defined CV_ICC
-#pragma optimize("",off)
-#pragma warning(disable: 4748)
-#endif
-
-namespace cv
-{
+namespace cv {
 
 template<> void DefaultDeleter<CvCapture>::operator ()(CvCapture* obj) const
 { cvReleaseCapture(&obj); }
@@ -64,59 +51,42 @@ template<> void DefaultDeleter<CvCapture>::operator ()(CvCapture* obj) const
 template<> void DefaultDeleter<CvVideoWriter>::operator ()(CvVideoWriter* obj) const
 { cvReleaseVideoWriter(&obj); }
 
-}
 
-/************************* Reading AVIs & Camera data **************************/
 
-static inline double icvGetCaptureProperty( const CvCapture* capture, int id )
+VideoCapture::VideoCapture()
+{}
+
+VideoCapture::VideoCapture(const String& filename, int apiPreference)
 {
-    return capture ? capture->getProperty(id) : 0;
+    CV_TRACE_FUNCTION();
+    open(filename, apiPreference);
 }
 
-CV_IMPL void cvReleaseCapture( CvCapture** pcapture )
+VideoCapture::VideoCapture(const String& filename)
 {
-    if( pcapture && *pcapture )
-    {
-        delete *pcapture;
-        *pcapture = 0;
-    }
+    CV_TRACE_FUNCTION();
+    open(filename, CAP_ANY);
 }
 
-CV_IMPL IplImage* cvQueryFrame( CvCapture* capture )
+VideoCapture::VideoCapture(int index)
 {
-    if(!capture)
-        return 0;
-    if(!capture->grabFrame())
-        return 0;
-    return capture->retrieveFrame(0);
+    CV_TRACE_FUNCTION();
+    open(index);
 }
 
-
-CV_IMPL int cvGrabFrame( CvCapture* capture )
+VideoCapture::~VideoCapture()
 {
-    return capture ? capture->grabFrame() : 0;
+    CV_TRACE_FUNCTION();
+
+    icap.release();
+    cap.release();
 }
 
-CV_IMPL IplImage* cvRetrieveFrame( CvCapture* capture, int idx )
+bool VideoCapture::open(const String& filename, int apiPreference)
 {
-    return capture ? capture->retrieveFrame(idx) : 0;
-}
+    CV_TRACE_FUNCTION();
 
-CV_IMPL double cvGetCaptureProperty( CvCapture* capture, int id )
-{
-    return icvGetCaptureProperty(capture, id);
-}
-
-CV_IMPL int cvSetCaptureProperty( CvCapture* capture, int id, double value )
-{
-    return capture ? capture->setProperty(id, value) : 0;
-}
-
-CV_IMPL int cvGetCaptureDomain( CvCapture* capture)
-{
-    return capture ? capture->getCaptureDomain() : 0;
-}
-
+    if (isOpened()) release();
 
 /**
  * Camera dispatching method: index is the camera number.
@@ -256,428 +226,86 @@ CV_IMPL CvCapture * cvCreateCameraCapture (int index)
 #ifdef HAVE_GSTREAMER
             capture = cvCreateCapture_GStreamer(CV_CAP_GSTREAMER_V4L2, 0);
             if (capture)
-                return capture;
-            capture = cvCreateCapture_GStreamer(CV_CAP_GSTREAMER_V4L, 0);
-            if (capture)
-                return capture;
-#endif
-            break; //CV_CAP_VFW
-
-        case CV_CAP_FIREWIRE:
-#ifdef HAVE_DC1394_2
-            capture = cvCreateCameraCapture_DC1394_2 (index);
-            if (capture)
-                return capture;
-#endif
-
-#ifdef HAVE_DC1394
-            capture = cvCreateCameraCapture_DC1394 (index);
-            if (capture)
-                return capture;
-#endif
-
-#ifdef HAVE_CMU1394
-            capture = cvCreateCameraCapture_CMU (index);
-            if (capture)
-                return capture;
-#endif
-
-#if defined(HAVE_GSTREAMER) && 0
-            //Re-enable again when gstreamer 1394 support will land in the backend code
-            capture = cvCreateCapture_GStreamer(CV_CAP_GSTREAMER_1394, 0);
-            if (capture)
-                return capture;
-#endif
-            break; //CV_CAP_FIREWIRE
-
-#ifdef HAVE_MIL
-        case CV_CAP_MIL:
-            capture = cvCreateCameraCapture_MIL (index);
-            if (capture)
-                return capture;
-            break;
-#endif
-
-#if defined(HAVE_QUICKTIME) || defined(HAVE_QTKIT)
-        case CV_CAP_QT:
-            capture = cvCreateCameraCapture_QT (index);
-            if (capture)
-                return capture;
-            break;
-#endif
-
-#ifdef HAVE_UNICAP
-        case CV_CAP_UNICAP:
-            capture = cvCreateCameraCapture_Unicap (index);
-            if (capture)
-                return capture;
-        break;
-#endif
-
-#ifdef HAVE_PVAPI
-        case CV_CAP_PVAPI:
-            capture = cvCreateCameraCapture_PvAPI (index);
-            if (capture)
-                return capture;
-        break;
-#endif
-
-#ifdef HAVE_OPENNI
-        case CV_CAP_OPENNI:
-            capture = cvCreateCameraCapture_OpenNI (index);
-            if (capture)
-                return capture;
-        break;
-#endif
-
-#ifdef HAVE_OPENNI2
-        case CV_CAP_OPENNI2:
-            capture = cvCreateCameraCapture_OpenNI(index);
-            if (capture)
-                return capture;
-            break;
-#endif
-
-#ifdef HAVE_XIMEA
-        case CV_CAP_XIAPI:
-            capture = cvCreateCameraCapture_XIMEA (index);
-            if (capture)
-                return capture;
-        break;
-#endif
-
-#ifdef HAVE_AVFOUNDATION
-        case CV_CAP_AVFOUNDATION:
-            capture = cvCreateCameraCapture_AVFoundation (index);
-            if (capture)
-                return capture;
-        break;
-#endif
-
-#ifdef HAVE_GIGE_API
-        case CV_CAP_GIGANETIX:
-            capture = cvCreateCameraCapture_Giganetix (index);
-            if (capture)
-                return capture;
-        break; // CV_CAP_GIGANETIX
-#endif
+            {
+                cap.reset(capture);
+                // assume it is opened
+                return true;
+            }
         }
     }
-
-    // failed open a camera
-    return 0;
-}
-
-/**
- * Videoreader dispatching method: it tries to find the first
- * API that can access a given filename.
- */
-CV_IMPL CvCapture * cvCreateFileCapture (const char * filename)
-{
-    CvCapture * result = 0;
-
-#ifdef HAVE_FFMPEG
-    if (! result)
-        result = cvCreateFileCapture_FFMPEG_proxy (filename);
-#endif
-
-#ifdef HAVE_VFW
-    if (! result)
-        result = cvCreateFileCapture_VFW (filename);
-#endif
-
-#ifdef HAVE_MSMF
-    if (! result)
-        result = cvCreateFileCapture_MSMF (filename);
-#endif
-
-#ifdef HAVE_XINE
-    if (! result)
-        result = cvCreateFileCapture_XINE (filename);
-#endif
-
-#ifdef HAVE_GSTREAMER
-    if (! result)
-        result = cvCreateCapture_GStreamer (CV_CAP_GSTREAMER_FILE, filename);
-#endif
-
-#if defined(HAVE_QUICKTIME) || defined(HAVE_QTKIT)
-    if (! result)
-        result = cvCreateFileCapture_QT (filename);
-#endif
-
-#ifdef HAVE_AVFOUNDATION
-    if (! result)
-        result = cvCreateFileCapture_AVFoundation (filename);
-#endif
-
-#ifdef HAVE_OPENNI
-    if (! result)
-        result = cvCreateFileCapture_OpenNI (filename);
-#endif
-
-    if (! result)
-        result = cvCreateFileCapture_Images (filename);
-
-    return result;
-}
-
-/**
- * Videowriter dispatching method: it tries to find the first
- * API that can write a given stream.
- */
-CV_IMPL CvVideoWriter* cvCreateVideoWriter( const char* filename, int fourcc,
-                                            double fps, CvSize frameSize, int is_color )
-{
-    //CV_FUNCNAME( "cvCreateVideoWriter" );
-
-    CvVideoWriter *result = 0;
-
-    if(!fourcc || !fps)
-        result = cvCreateVideoWriter_Images(filename);
-
-#ifdef HAVE_FFMPEG
-    if(!result)
-        result = cvCreateVideoWriter_FFMPEG_proxy (filename, fourcc, fps, frameSize, is_color);
-#endif
-
-#ifdef HAVE_VFW
-    if(!result)
-        result = cvCreateVideoWriter_VFW(filename, fourcc, fps, frameSize, is_color);
-#endif
-
-#ifdef HAVE_MSMF
-    if (!result)
-        result = cvCreateVideoWriter_MSMF(filename, fourcc, fps, frameSize, is_color);
-#endif
-
-/*  #ifdef HAVE_XINE
-    if(!result)
-        result = cvCreateVideoWriter_XINE(filename, fourcc, fps, frameSize, is_color);
-    #endif
-*/
-#ifdef HAVE_AVFOUNDATION
-    if (! result)
-        result = cvCreateVideoWriter_AVFoundation(filename, fourcc, fps, frameSize, is_color);
-#endif
-
-#if defined(HAVE_QUICKTIME) || defined(HAVE_QTKIT)
-    if(!result)
-        result = cvCreateVideoWriter_QT(filename, fourcc, fps, frameSize, is_color);
-#endif
-
-#ifdef HAVE_GSTREAMER
-    if (! result)
-        result = cvCreateVideoWriter_GStreamer(filename, fourcc, fps, frameSize, is_color);
-#endif
-
-#if !defined(HAVE_FFMPEG) && \
-    !defined(HAVE_VFW) && \
-    !defined(HAVE_MSMF) && \
-    !defined(HAVE_AVFOUNDATION) && \
-    !defined(HAVE_QUICKTIME) && \
-    !defined(HAVE_QTKIT) && \
-    !defined(HAVE_GSTREAMER)
-// If none of the writers is used
-// these statements suppress 'unused parameter' warnings.
-    (void)frameSize;
-    (void)is_color;
-#endif
-
-    if(!result)
-        result = cvCreateVideoWriter_Images(filename);
-
-    return result;
-}
-
-CV_IMPL int cvWriteFrame( CvVideoWriter* writer, const IplImage* image )
-{
-    return writer ? writer->writeFrame(image) : 0;
-}
-
-CV_IMPL void cvReleaseVideoWriter( CvVideoWriter** pwriter )
-{
-    if( pwriter && *pwriter )
-    {
-        delete *pwriter;
-        *pwriter = 0;
-    }
-}
-
-namespace cv
-{
-
-static Ptr<IVideoCapture> IVideoCapture_create(int index)
-{
-    int  domains[] =
-    {
-#ifdef HAVE_DSHOW
-        CV_CAP_DSHOW,
-#endif
-#ifdef HAVE_INTELPERC
-        CV_CAP_INTELPERC,
-#endif
-#ifdef WINRT_VIDEO
-        CAP_WINRT,
-#endif
-#ifdef HAVE_GPHOTO2
-        CV_CAP_GPHOTO2,
-#endif
-        -1, -1
-    };
-
-    // interpret preferred interface (0 = autodetect)
-    int pref = (index / 100) * 100;
-    if (pref)
-    {
-        domains[0]=pref;
-        index %= 100;
-        domains[1]=-1;
-    }
-
-    // try every possibly installed camera API
-    for (int i = 0; domains[i] >= 0; i++)
-    {
-#if defined(HAVE_DSHOW)        || \
-    defined(HAVE_INTELPERC)    || \
-    defined(WINRT_VIDEO)       || \
-    defined(HAVE_GPHOTO2)      || \
-    (0)
-        Ptr<IVideoCapture> capture;
-
-        switch (domains[i])
-        {
-#ifdef HAVE_DSHOW
-            case CV_CAP_DSHOW:
-                capture = makePtr<VideoCapture_DShow>(index);
-                break; // CV_CAP_DSHOW
-#endif
-#ifdef HAVE_INTELPERC
-            case CV_CAP_INTELPERC:
-                capture = makePtr<VideoCapture_IntelPerC>();
-                break; // CV_CAP_INTEL_PERC
-#endif
-#ifdef WINRT_VIDEO
-        case CAP_WINRT:
-            capture = Ptr<IVideoCapture>(new cv::VideoCapture_WinRT(index));
-            if (capture)
-                return capture;
-            break; // CAP_WINRT
-#endif
-#ifdef HAVE_GPHOTO2
-            case CV_CAP_GPHOTO2:
-                capture = createGPhoto2Capture(index);
-                break;
-#endif
-        }
-        if (capture && capture->isOpened())
-            return capture;
-#endif
-    }
-
-    // failed open a camera
-    return Ptr<IVideoCapture>();
-}
-
-
-static Ptr<IVideoCapture> IVideoCapture_create(const String& filename)
-{
-    int  domains[] =
-    {
-        CV_CAP_ANY,
-#ifdef HAVE_GPHOTO2
-        CV_CAP_GPHOTO2,
-#endif
-        -1, -1
-    };
-
-    // try every possibly installed camera API
-    for (int i = 0; domains[i] >= 0; i++)
-    {
-        Ptr<IVideoCapture> capture;
-
-        switch (domains[i])
-        {
-        case CV_CAP_ANY:
-            capture = createMotionJpegCapture(filename);
-            break;
-#ifdef HAVE_GPHOTO2
-        case CV_CAP_GPHOTO2:
-            capture = createGPhoto2Capture(filename);
-            break;
-#endif
-        }
-
-        if (capture && capture->isOpened())
-        {
-            return capture;
-        }
-    }
-    // failed open a camera
-    return Ptr<IVideoCapture>();
-}
-
-static Ptr<IVideoWriter> IVideoWriter_create(const String& filename, int _fourcc, double fps, Size frameSize, bool isColor)
-{
-    Ptr<IVideoWriter> iwriter;
-    if( _fourcc == CV_FOURCC('M', 'J', 'P', 'G') )
-        iwriter = createMotionJpegWriter(filename, fps, frameSize, isColor);
-    return iwriter;
-}
-
-VideoCapture::VideoCapture()
-{}
-
-VideoCapture::VideoCapture(const String& filename)
-{
-    open(filename);
-}
-
-VideoCapture::VideoCapture(int device)
-{
-    open(device);
-}
-
-VideoCapture::~VideoCapture()
-{
-    icap.release();
-    cap.release();
+    return false;
 }
 
 bool VideoCapture::open(const String& filename)
 {
-    if (isOpened()) release();
-    icap = IVideoCapture_create(filename);
-    if (!icap.empty())
-        return true;
+    CV_TRACE_FUNCTION();
 
-    cap.reset(cvCreateFileCapture(filename.c_str()));
-    return isOpened();
+    return open(filename, CAP_ANY);
 }
 
-bool VideoCapture::open(int device)
+bool  VideoCapture::open(int cameraNum, int apiPreference)
 {
+    CV_TRACE_FUNCTION();
+
     if (isOpened()) release();
-    icap = IVideoCapture_create(device);
-    if (!icap.empty())
-        return true;
-    cap.reset(cvCreateCameraCapture(device));
-    return isOpened();
+
+    const std::vector<VideoBackendInfo> backends = cv::videoio_registry::getAvailableBackends_CaptureByIndex();
+    for (size_t i = 0; i < backends.size(); i++)
+    {
+        const VideoBackendInfo& info = backends[i];
+        if (apiPreference == CAP_ANY || apiPreference == info.id)
+        {
+            CvCapture* capture = NULL;
+            VideoCapture_create(capture, icap, info.id, cameraNum);
+            if (!icap.empty())
+            {
+                if (icap->isOpened())
+                    return true;
+                icap.release();
+            }
+            if (capture)
+            {
+                cap.reset(capture);
+                // assume it is opened
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool VideoCapture::open(int index)
+{
+    CV_TRACE_FUNCTION();
+
+    // interpret preferred interface (0 = autodetect)
+    int backendID = (index / 100) * 100;
+    if (backendID)
+    {
+        index %= 100;
+    }
+
+    return open(index, backendID);
 }
 
 bool VideoCapture::isOpened() const
 {
-    return (!cap.empty() || !icap.empty());
+    if (!icap.empty())
+        return icap->isOpened();
+    return !cap.empty();  // legacy interface doesn't support closed files
 }
 
 void VideoCapture::release()
 {
+    CV_TRACE_FUNCTION();
     icap.release();
     cap.release();
 }
 
 bool VideoCapture::grab()
 {
+    CV_INSTRUMENT_REGION()
+
     if (!icap.empty())
         return icap->grabFrame();
     return cvGrabFrame(cap) != 0;
@@ -685,6 +313,8 @@ bool VideoCapture::grab()
 
 bool VideoCapture::retrieve(OutputArray image, int channel)
 {
+    CV_INSTRUMENT_REGION()
+
     if (!icap.empty())
         return icap->retrieveFrame(channel, image);
 
@@ -706,6 +336,8 @@ bool VideoCapture::retrieve(OutputArray image, int channel)
 
 bool VideoCapture::read(OutputArray image)
 {
+    CV_INSTRUMENT_REGION()
+
     if(grab())
         retrieve(image);
     else
@@ -716,6 +348,7 @@ bool VideoCapture::read(OutputArray image)
 VideoCapture& VideoCapture::operator >> (Mat& image)
 {
 #ifdef WINRT_VIDEO
+    // FIXIT grab/retrieve methods() should work too
     if (grab())
     {
         if (retrieve(image))
@@ -737,12 +370,13 @@ VideoCapture& VideoCapture::operator >> (Mat& image)
 #else
     read(image);
 #endif
-
     return *this;
 }
 
 VideoCapture& VideoCapture::operator >> (UMat& image)
 {
+    CV_INSTRUMENT_REGION()
+
     read(image);
     return *this;
 }
@@ -758,8 +392,12 @@ double VideoCapture::get(int propId) const
 {
     if (!icap.empty())
         return icap->getProperty(propId);
-    return icvGetCaptureProperty(cap, propId);
+    return cap ? cap->getProperty(propId) : 0;
 }
+
+
+//=================================================================================================
+
 
 
 VideoWriter::VideoWriter()
@@ -768,6 +406,12 @@ VideoWriter::VideoWriter()
 VideoWriter::VideoWriter(const String& filename, int _fourcc, double fps, Size frameSize, bool isColor)
 {
     open(filename, _fourcc, fps, frameSize, isColor);
+}
+
+
+VideoWriter::VideoWriter(const String& filename, int apiPreference, int _fourcc, double fps, Size frameSize, bool isColor)
+{
+    open(filename, apiPreference, _fourcc, fps, frameSize, isColor);
 }
 
 void VideoWriter::release()
@@ -783,12 +427,38 @@ VideoWriter::~VideoWriter()
 
 bool VideoWriter::open(const String& filename, int _fourcc, double fps, Size frameSize, bool isColor)
 {
+    return open(filename, CAP_ANY, _fourcc, fps, frameSize, isColor);
+}
+
+bool VideoWriter::open(const String& filename, int apiPreference, int _fourcc, double fps, Size frameSize, bool isColor)
+{
+    CV_INSTRUMENT_REGION()
+
     if (isOpened()) release();
-    iwriter = IVideoWriter_create(filename, _fourcc, fps, frameSize, isColor);
-    if (!iwriter.empty())
-        return true;
-    writer.reset(cvCreateVideoWriter(filename.c_str(), _fourcc, fps, frameSize, isColor));
-    return isOpened();
+
+    const std::vector<VideoBackendInfo> backends = cv::videoio_registry::getAvailableBackends_Writer();
+    for (size_t i = 0; i < backends.size(); i++)
+    {
+        const VideoBackendInfo& info = backends[i];
+        if (apiPreference == CAP_ANY || apiPreference == info.id)
+        {
+            CvVideoWriter* writer_ = NULL;
+            VideoWriter_create(writer_, iwriter, info.id, filename, _fourcc, fps, frameSize, isColor);
+            if (!iwriter.empty())
+            {
+                if (iwriter->isOpened())
+                    return true;
+                iwriter.release();
+            }
+            if (writer_)
+            {
+                // assume it is opened
+                writer.reset(writer_);
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 bool VideoWriter::isOpened() const
@@ -813,6 +483,8 @@ double VideoWriter::get(int propId) const
 
 void VideoWriter::write(const Mat& image)
 {
+    CV_INSTRUMENT_REGION()
+
     if( iwriter )
         iwriter->write(image);
     else
@@ -824,13 +496,16 @@ void VideoWriter::write(const Mat& image)
 
 VideoWriter& VideoWriter::operator << (const Mat& image)
 {
+    CV_INSTRUMENT_REGION()
+
     write(image);
     return *this;
 }
 
+// FIXIT OpenCV 4.0: make inline
 int VideoWriter::fourcc(char c1, char c2, char c3, char c4)
 {
     return (c1 & 255) + ((c2 & 255) << 8) + ((c3 & 255) << 16) + ((c4 & 255) << 24);
 }
 
-}
+} // namespace

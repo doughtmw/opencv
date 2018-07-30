@@ -99,6 +99,7 @@ namespace
 
         void write(FileStorage& fs) const
         {
+            writeFormat(fs);
             fs << "name" << "HoughCirclesDetector_CUDA"
             << "dp" << dp_
             << "minDist" << minDist_
@@ -214,8 +215,8 @@ namespace
             AutoBuffer<ushort2> newBuf_(centersCount);
             int newCount = 0;
 
-            ushort2* oldBuf = oldBuf_;
-            ushort2* newBuf = newBuf_;
+            ushort2* oldBuf = oldBuf_.data();
+            ushort2* newBuf = newBuf_.data();
 
             cudaSafeCall( cudaMemcpy(oldBuf, centers, centersCount * sizeof(ushort2), cudaMemcpyDeviceToHost) );
 

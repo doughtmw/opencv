@@ -55,11 +55,11 @@ cv::Ptr<cv::cuda::CLAHE> cv::cuda::createCLAHE(double, cv::Size) { throw_no_cuda
 
 void cv::cuda::evenLevels(OutputArray, int, int, int, Stream&) { throw_no_cuda(); }
 
-void cv::cuda::histEven(InputArray, OutputArray, InputOutputArray, int, int, int, Stream&) { throw_no_cuda(); }
-void cv::cuda::histEven(InputArray, GpuMat*, InputOutputArray, int*, int*, int*, Stream&) { throw_no_cuda(); }
+void cv::cuda::histEven(InputArray, OutputArray, int, int, int, Stream&) { throw_no_cuda(); }
+void cv::cuda::histEven(InputArray, GpuMat*, int*, int*, int*, Stream&) { throw_no_cuda(); }
 
-void cv::cuda::histRange(InputArray, OutputArray, InputArray, InputOutputArray, Stream&) { throw_no_cuda(); }
-void cv::cuda::histRange(InputArray, GpuMat*, const GpuMat*, InputOutputArray, Stream&) { throw_no_cuda(); }
+void cv::cuda::histRange(InputArray, OutputArray, InputArray, Stream&) { throw_no_cuda(); }
+void cv::cuda::histRange(InputArray, GpuMat*, const GpuMat*, Stream&) { throw_no_cuda(); }
 
 #else /* !defined (HAVE_CUDA) */
 
@@ -69,20 +69,32 @@ void cv::cuda::histRange(InputArray, GpuMat*, const GpuMat*, InputOutputArray, S
 namespace hist
 {
     void histogram256(PtrStepSzb src, int* hist, cudaStream_t stream);
+    void histogram256(PtrStepSzb src, PtrStepSzb mask, int* hist, cudaStream_t stream);
 }
 
 void cv::cuda::calcHist(InputArray _src, OutputArray _hist, Stream& stream)
 {
+    calcHist(_src, cv::cuda::GpuMat(), _hist, stream);
+}
+
+void cv::cuda::calcHist(InputArray _src, InputArray _mask, OutputArray _hist, Stream& stream)
+{
     GpuMat src = _src.getGpuMat();
+    GpuMat mask = _mask.getGpuMat();
 
     CV_Assert( src.type() == CV_8UC1 );
+    CV_Assert( mask.empty() || mask.type() == CV_8UC1 );
+    CV_Assert( mask.empty() || mask.size() == src.size() );
 
     _hist.create(1, 256, CV_32SC1);
     GpuMat hist = _hist.getGpuMat();
 
     hist.setTo(Scalar::all(0), stream);
 
-    hist::histogram256(src, hist.ptr<int>(), StreamAccessor::getStream(stream));
+    if (mask.empty())
+        hist::histogram256(src, hist.ptr<int>(), StreamAccessor::getStream(stream));
+    else
+        hist::histogram256(src, mask, hist.ptr<int>(), StreamAccessor::getStream(stream));
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -95,7 +107,7 @@ namespace hist
 
 void cv::cuda::equalizeHist(InputArray _src, OutputArray _dst, Stream& _stream)
 {
-    GpuMat src = _src.getGpuMat();
+    GpuMat src = getInputMat(_src, _stream);
 
     CV_Assert( src.type() == CV_8UC1 );
 

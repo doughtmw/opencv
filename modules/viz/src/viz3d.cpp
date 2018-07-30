@@ -100,6 +100,10 @@ void cv::viz::Viz3d::release()
 
 void cv::viz::Viz3d::spin() { impl_->spin(); }
 void cv::viz::Viz3d::spinOnce(int time, bool force_redraw) { impl_->spinOnce(time, force_redraw); }
+void cv::viz::Viz3d::setOffScreenRendering() { impl_->setOffScreenRendering(); }
+void cv::viz::Viz3d::removeAllLights() { impl_->removeAllLights(); }
+void cv::viz::Viz3d::addLight(Vec3d position, Vec3d focalPoint, Color color, Color diffuseColor, Color ambientColor, Color specularColor)
+{  impl_->addLight(position, focalPoint, color, diffuseColor, ambientColor, specularColor);  }
 bool cv::viz::Viz3d::wasStopped() const { return impl_->wasStopped(); }
 void cv::viz::Viz3d::close() { impl_->close(); }
 
@@ -123,7 +127,7 @@ cv::Affine3d cv::viz::Viz3d::getWidgetPose(const String &id) const { return impl
 void cv::viz::Viz3d::setCamera(const Camera &camera) { impl_->setCamera(camera); }
 cv::viz::Camera cv::viz::Viz3d::getCamera() const { return impl_->getCamera(); }
 void cv::viz::Viz3d::setViewerPose(const Affine3d &pose) { impl_->setViewerPose(pose); }
-cv::Affine3d cv::viz::Viz3d::getViewerPose() { return impl_->getViewerPose(); }
+cv::Affine3d cv::viz::Viz3d::getViewerPose() const { return impl_->getViewerPose(); }
 
 void cv::viz::Viz3d::resetCameraViewpoint(const String &id) { impl_->resetCameraViewpoint(id); }
 void cv::viz::Viz3d::resetCamera() { impl_->resetCamera(); }
@@ -134,6 +138,7 @@ void cv::viz::Viz3d::converTo3DRay(const Point3d &window_coord, Point3d &origin,
 cv::Size cv::viz::Viz3d::getWindowSize() const { return impl_->getWindowSize(); }
 void cv::viz::Viz3d::setWindowSize(const Size &window_size) { impl_->setWindowSize(window_size); }
 cv::String cv::viz::Viz3d::getWindowName() const { return impl_->getWindowName(); }
+cv::Mat cv::viz::Viz3d::getScreenshot() const { return impl_->getScreenshot(); }
 void cv::viz::Viz3d::saveScreenshot(const String &file) { impl_->saveScreenshot(file); }
 void cv::viz::Viz3d::setWindowPosition(const Point& window_position) { impl_->setWindowPosition(window_position); }
 void cv::viz::Viz3d::setFullScreen(bool mode) { impl_->setFullScreen(mode); }

@@ -15,7 +15,7 @@
 * 6- Texture Flattening
 
 * The program takes as input a source and a destination image (for 1-3 methods)
-* and ouputs the cloned image.
+* and outputs the cloned image.
 
 * Step 1:
 * -> In the source image, select the region of interest by left click mouse button. A Polygon ROI will be created by left clicking mouse button.
@@ -39,7 +39,12 @@
 #include <iostream>
 #include <stdlib.h>
 
-using namespace std;
+// we're NOT "using namespace std;" here, to avoid collisions between the beta variable and std::beta in c++17
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
 using namespace cv;
 
 Mat img0, img1, img2, res, res1, final, final1, blend;
@@ -231,7 +236,7 @@ void destination(int event, int x, int y, int, void*)
         if(maxxd > im1.size().width || maxyd > im1.size().height || minxd < 0 || minyd < 0)
         {
             cout << "Index out of range" << endl;
-            exit(0);
+            exit(1);
         }
 
         final1 = Mat::zeros(img2.size(),CV_8UC3);
@@ -322,12 +327,12 @@ int main()
         if(img0.empty())
         {
             cout << "Source Image does not exist" << endl;
-            exit(0);
+            exit(2);
         }
         if(img2.empty())
         {
             cout << "Destination Image does not exist" << endl;
-            exit(0);
+            exit(2);
         }
 
         channel = img0.channels();
@@ -370,7 +375,7 @@ int main()
         if(img0.empty())
         {
             cout << "Source Image does not exist" << endl;
-            exit(0);
+            exit(2);
         }
 
         res1 = Mat::zeros(img0.size(),CV_8UC1);
@@ -400,7 +405,7 @@ int main()
         if(img0.empty())
         {
             cout << "Source Image does not exist" << endl;
-            exit(0);
+            exit(2);
         }
 
         res1 = Mat::zeros(img0.size(),CV_8UC1);
@@ -433,7 +438,7 @@ int main()
         if(img0.empty())
         {
             cout << "Source Image does not exist" << endl;
-            exit(0);
+            exit(2);
         }
 
         res1 = Mat::zeros(img0.size(),CV_8UC1);
@@ -447,13 +452,13 @@ int main()
     }
     else
     {
-        cout << "Wrong Option Choosen" << endl;
-        exit(0);
+        cout << "Wrong Option Chosen" << endl;
+        exit(1);
     }
 
     for(;;)
     {
-        char key = (char) waitKey(0);
+        char key = (char)waitKey(0);
 
         if(key == 'd' && flag3 == 0)
         {
@@ -541,7 +546,7 @@ int main()
             imwrite("cloned.png",blend);
         }
         else if(key == 'q')
-            exit(0);
+            break;
     }
-    waitKey(0);
+    return 0;
 }

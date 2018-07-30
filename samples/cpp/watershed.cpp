@@ -48,7 +48,13 @@ static void onMouse( int event, int x, int y, int flags, void* )
 
 int main( int argc, char** argv )
 {
-    char* filename = argc >= 2 ? argv[1] : (char*)"../data/fruits.jpg";
+    cv::CommandLineParser parser(argc, argv, "{help h | | }{ @input | ../data/fruits.jpg | }");
+    if (parser.has("help"))
+    {
+        help();
+        return 0;
+    }
+    string filename = parser.get<string>("@input");
     Mat img0 = imread(filename, 1), imgGray;
 
     if( img0.empty() )
@@ -68,19 +74,19 @@ int main( int argc, char** argv )
 
     for(;;)
     {
-        int c = waitKey(0);
+        char c = (char)waitKey(0);
 
-        if( (char)c == 27 )
+        if( c == 27 )
             break;
 
-        if( (char)c == 'r' )
+        if( c == 'r' )
         {
             markerMask = Scalar::all(0);
             img0.copyTo(img);
             imshow( "image", img );
         }
 
-        if( (char)c == 'w' || (char)c == ' ' )
+        if( c == 'w' || c == ' ' )
         {
             int i, j, compCount = 0;
             vector<vector<Point> > contours;

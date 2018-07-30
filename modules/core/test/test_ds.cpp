@@ -1,7 +1,9 @@
+// This file is part of OpenCV project.
+// It is subject to the license terms in the LICENSE file found in the top-level directory
+// of this distribution and at http://opencv.org/license.html.
 #include "test_precomp.hpp"
 
-using namespace cv;
-using namespace std;
+namespace opencv_test { namespace {
 
 typedef  struct  CvTsSimpleSeq
 {
@@ -56,7 +58,7 @@ static void cvTsSimpleSeqShiftAndCopy( CvTsSimpleSeq* seq, int from_idx, int to_
                 (seq->count - from_idx)*elem_size );
     }
     seq->count += to_idx - from_idx;
-    if( elem && to_idx > from_idx )
+    if( elem )
         memcpy( seq->array + from_idx*elem_size, elem, (to_idx - from_idx)*elem_size );
 }
 
@@ -491,6 +493,7 @@ class Core_SeqBaseTest : public Core_DynStructBaseTest
 {
 public:
     Core_SeqBaseTest();
+    virtual ~Core_SeqBaseTest();
     void clear();
     void run( int );
 
@@ -501,11 +504,14 @@ protected:
     int test_seq_ops( int iters );
 };
 
-
 Core_SeqBaseTest::Core_SeqBaseTest()
 {
 }
 
+Core_SeqBaseTest::~Core_SeqBaseTest()
+{
+    clear();
+}
 
 void Core_SeqBaseTest::clear()
 {
@@ -1206,6 +1212,7 @@ class Core_SetTest : public Core_DynStructBaseTest
 {
 public:
     Core_SetTest();
+    virtual ~Core_SetTest();
     void clear();
     void run( int );
 
@@ -1219,6 +1226,10 @@ Core_SetTest::Core_SetTest()
 {
 }
 
+Core_SetTest::~Core_SetTest()
+{
+    clear();
+}
 
 void Core_SetTest::clear()
 {
@@ -1417,6 +1428,7 @@ class Core_GraphTest : public Core_DynStructBaseTest
 {
 public:
     Core_GraphTest();
+    virtual ~Core_GraphTest();
     void clear();
     void run( int );
 
@@ -1430,6 +1442,10 @@ Core_GraphTest::Core_GraphTest()
 {
 }
 
+Core_GraphTest::~Core_GraphTest()
+{
+    clear();
+}
 
 void Core_GraphTest::clear()
 {
@@ -2042,6 +2058,8 @@ void Core_GraphScanTest::run( int )
                 CV_TS_SEQ_CHECK_CONDITION( vtx_count == 0 && edge_count == 0,
                                           "Not every vertex/edge has been visited" );
                 update_progressbar();
+
+                cvReleaseGraphScanner( &scanner );
             }
 
             // for a random graph the test just checks that every graph vertex and
@@ -2106,8 +2124,6 @@ void Core_GraphScanTest::run( int )
     catch(int)
     {
     }
-
-    cvReleaseGraphScanner( &scanner );
 }
 
 
@@ -2116,3 +2132,5 @@ TEST(Core_DS_Seq, sort_invert) { Core_SeqSortInvTest test; test.safe_run(); }
 TEST(Core_DS_Set, basic_operations) { Core_SetTest test; test.safe_run(); }
 TEST(Core_DS_Graph, basic_operations) { Core_GraphTest test; test.safe_run(); }
 TEST(Core_DS_Graph, scan) { Core_GraphScanTest test; test.safe_run(); }
+
+}} // namespace

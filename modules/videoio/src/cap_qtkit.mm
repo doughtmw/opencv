@@ -93,6 +93,8 @@ didDropVideoFrameWithSampleBuffer:(QTSampleBuffer *)sampleBuffer
 - (int)updateImage;
 - (IplImage*)getOutput;
 
+- (void)doFireTimer:(NSTimer *)timer;
+
 @end
 
 /*****************************************************************************
@@ -268,8 +270,6 @@ CvCaptureCAM::CvCaptureCAM(int cameraNum) {
 
 CvCaptureCAM::~CvCaptureCAM() {
     stopCaptureDevice();
-
-    std::cout << "Cleaned up camera." << std::endl;
 }
 
 int CvCaptureCAM::didStart() {
@@ -294,7 +294,7 @@ bool CvCaptureCAM::grabFrame(double timeOut) {
     // method exits immediately"
     // using usleep() is not a good alternative, because it may block the GUI.
     // Create a dummy timer so that runUntilDate does not exit immediately:
-    [NSTimer scheduledTimerWithTimeInterval:100 target:nil selector:@selector(doFireTimer:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:100 target:capture selector:@selector(doFireTimer:) userInfo:nil repeats:YES];
     while (![capture updateImage] && (total += sleepTime)<=timeOut) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:sleepTime]];
     }
@@ -620,6 +620,11 @@ didDropVideoFrameWithSampleBuffer:(QTSampleBuffer *)sampleBuffer
     CVBufferRelease(pixels);
 
     return 1;
+}
+
+- (void)doFireTimer:(NSTimer *)timer {
+    (void)timer;
+    // dummy
 }
 
 @end
